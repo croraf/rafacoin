@@ -1,4 +1,4 @@
-import {generateKeys, signData, verifySignature} from './signing';
+/*import {generateKeys, signData, verifySignature} from './signing';
 
 const keys = generateKeys();
 
@@ -33,16 +33,26 @@ const verified = verifySignature(
 console.log(verified);
 
 
+*/
 
-/*cosnt diffHell = crypto.createECDH('secp521r1');
-diffHell.generateKeys('base64');
+import {blockchain, blockchainTipHash, addToBlockchain} from './blockchain';
 
-console.log('keys:', diffHell.getPublicKey('base64'));
+import {mineBlock} from './mining';
+import {makeHash} from './hashing';
 
-cosnt encr = crypto.publicEncrypt(diffHell.getPublicKey('base64'), new Buffer("Moja prva poruka"));
-console.log(encr);
+console.log('blockchain:', blockchain);
 
-cosnt decr = crypto.privateDecrypt(diffHell.getPrivateKey('base64'), encr);
+for (let i = 0; i < 10; i++){
+    console.log('tip:', blockchainTipHash);
+    const minedBlock = mineBlock(blockchainTipHash);
+    const minedBlockHash = makeHash(JSON.stringify(minedBlock));
+    if (addToBlockchain(minedBlock, minedBlockHash)){
+        console.log('block added:', minedBlockHash, minedBlock);
+    } else {
+        console.log('wrong block mined');
+    }
+}
 
-console.log(decr.toString());*/
+
+console.log('blockchain:', blockchain);
 
