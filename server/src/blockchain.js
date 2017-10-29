@@ -2,7 +2,7 @@ const blockchain = {
     'c00ee95ff114855f2cae409ebb44c8f812b2505e144ccb076feddfdcc08053e3': {
         previousHash: undefined,
         transactions: [],
-        target: '2000000ff114855f2cae409ebb44c8f812b2505e144ccb076feddfdcc08053e3',
+        target: '0000100ff114855f2cae409ebb44c8f812b2505e144ccb076feddfdcc08053e3',
         noonce: 0
     }
 };
@@ -24,14 +24,20 @@ const validateBlock = (block, hash) => {
     }
 };
 
-const addToBlockchain = (block, hash) => {
+import {makeHash} from './hashing';
+
+const addToBlockchain = (block) => {
+
+    
+    const hash = makeHash(JSON.stringify(block));
 
     if (validateBlock(block, hash)) {
         blockchain[hash] = block;
         blockchainTipHash = hash;
-        return true;
+        console.log('block added:', hash, block);
+        return;
     } else {
-        return false;
+        throw {reason: 'Validation failed! Block not added to blockchain!'};
     }
 };
 

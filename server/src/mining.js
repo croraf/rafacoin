@@ -1,5 +1,7 @@
 
+import {blockchain, blockchainTipHash} from './blockchain';
 import {makeHash} from './hashing';
+import {selectTransactions} from './transactions/selectTransactions';
 
 const verifyMinedTarget = (nonce, target) => {
     if (nonce <= target) {
@@ -9,30 +11,47 @@ const verifyMinedTarget = (nonce, target) => {
     }
 };
 
-const mineBlock = (blockchainTipHash) => {
+const generateCoinbase = () => {
+    const coinbase = {
+        outputs: [
+            {address: 'rafa', value: 25}
+        ]
+    };
+
+    return coinbase;
+};
+
+const mineBlock = () => {
+
+    const coinbase = generateCoinbase();
+
+    const selectedTransactions = [coinbase].concat(selectTransactions());
 
     const nextBlock = {
         previousHash: blockchainTipHash,
-        transactions: [123],
-        target: '2000000ff114855f2cae409ebb44c8f812b2505e144ccb076feddfdcc08053e3',
+        transactions: selectedTransactions,
+        target: blockchain[blockchainTipHash].target,
         nonce: 0
     };
 
     let mined = false;
+    let miningTries = 0;
 
     while (!mined) {
-        const nonce = Math.floor(Math.random()*1000);
+        const nonce = Math.floor(Math.random()*100000000);
 
         nextBlock.nonce = nonce;
 
         const nextBlockHash = makeHash(JSON.stringify(nextBlock));
-        console.log('mining:', nonce, nextBlockHash);
+        
+        miningTries++;
 
         mined = verifyMinedTarget(nextBlockHash, nextBlock.target);
     }
 
-    if (mined) {
+    console.log('mining tries:', miningTries);
 
+    if (mined) {
         return nextBlock;
     } else {
         throw {error: 'mining error'};

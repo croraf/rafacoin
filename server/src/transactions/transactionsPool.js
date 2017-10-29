@@ -1,0 +1,7 @@
+const transactionPool = [];
+
+
+
+export {transactionPool};
+
+
