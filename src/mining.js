@@ -1,7 +1,7 @@
 
 import {blockchain, blockchainTipHash} from './blockchain';
 import {makeHash} from './hashing';
-import {selectTransactions} from './transactions/selectTransactions';
+import {selectTransactions, removeTransactionsFromPool} from './transactions/selectTransactions';
 
 const verifyMinedTarget = (nonce, target) => {
     if (nonce <= target) {
@@ -25,33 +25,35 @@ const mineBlock = () => {
 
     const coinbase = generateCoinbase();
 
-    const selectedTransactions = [coinbase].concat(selectTransactions());
+    const selectedTransactions = selectTransactions();
+
+    const transactions = [coinbase].concat(selectedTransactions);
 
     const nextBlock = {
         previousHash: blockchainTipHash,
-        transactions: selectedTransactions,
+        transactions: transactions,
         target: blockchain[blockchainTipHash].target,
         nonce: 0
     };
 
     let mined = false;
     let miningTries = 0;
+    let nonce = 0;
 
     while (!mined) {
-        const nonce = Math.floor(Math.random()*100000000);
 
-        nextBlock.nonce = nonce;
-
-        const nextBlockHash = makeHash(JSON.stringify(nextBlock));
-        
         miningTries++;
 
+        nextBlock.nonce = nonce;
+        const nextBlockHash = makeHash(JSON.stringify(nextBlock));
         mined = verifyMinedTarget(nextBlockHash, nextBlock.target);
+
+        nonce++;
     }
 
-    console.log('mining tries:', miningTries);
-
     if (mined) {
+
+        removeTransactionsFromPool(selectedTransactions);
         return nextBlock;
     } else {
         throw {error: 'mining error'};

@@ -2,7 +2,7 @@ const blockchain = {
     'c00ee95ff114855f2cae409ebb44c8f812b2505e144ccb076feddfdcc08053e3': {
         previousHash: undefined,
         transactions: [],
-        target: '0000100ff114855f2cae409ebb44c8f812b2505e144ccb076feddfdcc08053e3',
+        target: '0001100ff114855f2cae409ebb44c8f812b2505e144ccb076feddfdcc08053e3',
         noonce: 0
     }
 };

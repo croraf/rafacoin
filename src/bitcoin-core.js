@@ -1,8 +1,8 @@
 import {signTransaction} from './transactions/transactions';
 import {transactionPool} from './transactions/transactionsPool';
+import {makeHash} from './hashing';
 
-
-const transaction = {
+const transactionData = {
     inputs: [
         {address: 'ivan', value: 110}
     ],
@@ -13,8 +13,8 @@ const transaction = {
     fee: 1
 };
 
-const signedTransaction = signTransaction(transaction);
-transactionPool.push(signedTransaction);
+const signedTransaction = signTransaction(transactionData);
+transactionPool[makeHash(JSON.stringify(signedTransaction))] = signedTransaction;
 
 
 
