@@ -37,5 +37,5 @@ for (let i = 0; i < 10; i++){
 }
 
 
-console.log('blockchain:', blockchain);
+log1('blockchain:', blockchain);
 

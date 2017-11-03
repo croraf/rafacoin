@@ -21,6 +21,8 @@ const generateCoinbase = () => {
     return coinbase;
 };
 
+import {log1} from './utilities';
+
 const mineBlock = () => {
 
     const coinbase = generateCoinbase();
@@ -28,6 +30,8 @@ const mineBlock = () => {
     const selectedTransactions = selectTransactions();
 
     const transactions = [coinbase].concat(selectedTransactions);
+
+    log1('Transactions:', transactions);
 
     const nextBlock = {
         previousHash: blockchainTipHash,

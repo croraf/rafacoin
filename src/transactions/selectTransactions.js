@@ -1,11 +1,13 @@
 
 import {transactionPool} from './transactionsPool';
 import {makeHash} from '../hashing';
+import {log1} from '../utilities';
 
 const selectTransactions = () => {
     const selectedTransactions = Object.values(transactionPool).filter((signedTransaction) => signedTransaction.transaction.fee >= 1);
 
-    console.log('Selected transactions:', selectedTransactions.map(transaction => transaction.transaction));
+    log1('Selected transactions:', selectedTransactions.map(transaction => transaction.transaction));
+    
     return selectedTransactions;
 };
 
