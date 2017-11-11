@@ -4,7 +4,16 @@ import {makeHash} from '../hashing';
 import {log1} from '../utilities';
 
 const selectTransactions = () => {
-    const selectedTransactions = Object.values(transactionPool).filter((signedTransaction) => signedTransaction.transaction.fee >= 1);
+    let selectedTransactions = Object.values(transactionPool).filter(
+        signedTransaction => signedTransaction.transaction.fee >= 1
+    );
+
+    if (selectedTransactions.length === 0) {
+
+        selectedTransactions = Object.values(transactionPool).filter(
+            signedTransaction => signedTransaction.transaction.fee >= 0.1
+        );
+    }
 
     log1('Selected transactions:', selectedTransactions.map(transaction => transaction.transaction));
     

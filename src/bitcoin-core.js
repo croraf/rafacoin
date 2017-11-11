@@ -1,29 +1,21 @@
-import {signTransaction} from './transactions/transactions';
-import {transactionPool} from './transactions/transactionsPool';
-import {makeHash} from './hashing';
 
-const transactionData = {
-    inputs: [
-        {address: 'ivan', value: 110}
-    ],
-    outputs: [
-        {address: 'ivan', value: 99},
-        {address: 'marko', value: 10},
-    ],
-    fee: 1
-};
+import {createTransactions} from './transactions/createTransactions';
 
-const signedTransaction = signTransaction(transactionData);
-transactionPool[makeHash(JSON.stringify(signedTransaction))] = signedTransaction;
+
+createTransactions();
+
 
 
 
 import {blockchain, blockchainTipHash, addToBlockchain} from './blockchain';
 import {mineBlock} from './mining';
+import {log1} from './utilities';
 
-console.log('blockchain:', blockchain);
+log1('blockchain:', blockchain);
 
 for (let i = 0; i < 10; i++){
+
+    log1('Next mining cycle', '');
 
     console.log('tip:', blockchainTipHash);
     const minedBlock = mineBlock();

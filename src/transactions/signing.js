@@ -7,9 +7,12 @@ const generateKeys = () => {
 };
 
 
-const sign = crypto.createSign('SHA256');
+
 
 const signData = (data, privateKey) => {
+
+    const sign = crypto.createSign('SHA256');
+
     sign.write(data);
     sign.end();
 
@@ -17,9 +20,12 @@ const signData = (data, privateKey) => {
 };
 
 
-const verify = crypto.createVerify('SHA256');
+
 
 const verifySignature = (data, signature, publicKey) => {
+
+    const verify = crypto.createVerify('SHA256');
+    
     verify.write(data);
     verify.end();
     
