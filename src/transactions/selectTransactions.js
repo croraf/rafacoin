@@ -1,31 +1,33 @@
 
 import {transactionPool} from './transactionsPool';
+import {getTransactionsSortedByFee} from './transactions';
 import {makeHash} from '../hashing';
 import {log1} from '../utilities';
 
-const selectTransactions = () => {
-    let selectedTransactions = Object.values(transactionPool).filter(
-        signedTransaction => signedTransaction.transaction.fee >= 1
-    );
+const selectTransactionsToMine = () => {
 
-    if (selectedTransactions.length === 0) {
+    const allSortedTransactions = getTransactionsSortedByFee();
 
-        selectedTransactions = Object.values(transactionPool).filter(
-            signedTransaction => signedTransaction.transaction.fee >= 0.1
-        );
+    const selectedTransactions = [];
+
+    while (allSortedTransactions.length > 0 && selectedTransactions.length < 2) {
+
+        selectedTransactions.push(allSortedTransactions.pop());
     }
 
-    log1('Selected transactions:', selectedTransactions.map(transaction => transaction.transaction));
+
+    log1('Selected transactions length:', selectedTransactions.length);
+    log1('Selected transactions:', selectedTransactions.map(transactionElement => transactionElement[1].transaction));
     
     return selectedTransactions;
 };
 
-const removeTransactionsFromPool = (transactions) => {
-    transactions.forEach(transaction => {
+const removeTransactionsFromPool = (minedTransactions) => {
+    minedTransactions.forEach(transaction => {
 
-        delete transactionPool[makeHash(JSON.stringify(transaction))];
+        transactionPool.delete(transaction[0]);
     });
 
 };
 
-export {selectTransactions, removeTransactionsFromPool};
+export {selectTransactionsToMine, removeTransactionsFromPool};

@@ -1,7 +1,7 @@
 
 import {blockchain, blockchainTipHash} from './blockchain';
 import {makeHash} from './hashing';
-import {selectTransactions, removeTransactionsFromPool} from './transactions/selectTransactions';
+import {selectTransactionsToMine, removeTransactionsFromPool} from './transactions/selectTransactions';
 
 const verifyMinedTarget = (nonce, target) => {
     if (nonce <= target) {
@@ -27,7 +27,7 @@ const mineBlock = () => {
 
     const coinbase = generateCoinbase();
 
-    const selectedTransactions = selectTransactions();
+    const selectedTransactions = selectTransactionsToMine();
 
     const transactions = [coinbase].concat(selectedTransactions);
 

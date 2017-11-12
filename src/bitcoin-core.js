@@ -15,7 +15,7 @@ log1('blockchain:', blockchain);
 
 for (let i = 0; i < 10; i++){
 
-    log1('Next mining cycle', '');
+    log1('Next mining cycle:' + i, '');
 
     console.log('tip:', blockchainTipHash);
     const minedBlock = mineBlock();

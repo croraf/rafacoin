@@ -36,7 +36,7 @@ const sortTransactionsByFee = (a, b) => {
 const getTransactionsSortedByFee = () => {
 
     return [...transactionPool.entries()].sort(sortTransactionsByFee);
-}
+};
 
 export {signTransaction, verifyTransaction, getTransactionsSortedByFee};
 
