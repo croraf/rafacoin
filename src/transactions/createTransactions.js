@@ -1,5 +1,5 @@
 
-import {signTransaction} from './transactions';
+import {signTransaction, getTransactionsSortedByFee} from './transactions';
 import {transactionPool} from './transactionsPool';
 
 import {log1} from '../utilities';
@@ -38,7 +38,7 @@ const createTransactions = () => {
             {address: 'ivan', value: 9},
             {address: 'marko', value: 10},
         ],
-        fee: 1
+        fee: 0.5
     };
     
     signAndAddTransaction(transactionData);
@@ -52,27 +52,18 @@ const createTransactions = () => {
             {address: 'ivan', value: 9.5},
             {address: 'marko', value: 10},
         ],
-        fee: 0.5
+        fee: 1.5
     };
     
     signAndAddTransaction(transactionData);
     
-    const iterator = transactionPool.iterate();
+    const sortedTransactions = getTransactionsSortedByFee();
     
-    console.log('iterator:::');
-    for (let item of transactionPool) {
-        console.log(item);
+        
+    log1('Transactions by fee:', '\n');
+    for (let item of sortedTransactions) {
+        log1('Transaction:', item);
     }
-    /* while (true) {
-
-        const item = iterator.next();
-
-        if (item.done){
-            break;
-        }
-        log1(item.value);
-    } */
-    
 };
 
 export {createTransactions};

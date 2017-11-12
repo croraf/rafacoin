@@ -1,4 +1,5 @@
 import {generateKeys, signData, verifySignature} from './signing';
+import {transactionPool} from './transactionsPool';
 
 const keys = generateKeys();
 
@@ -28,6 +29,14 @@ const verifyTransaction = (signedTransaction) => {
     return verified;
 };
 
+const sortTransactionsByFee = (a, b) => {
+    return a[1].transaction.fee - b[1].transaction.fee;
+};
 
-export {signTransaction, verifyTransaction};
+const getTransactionsSortedByFee = () => {
+
+    return [...transactionPool.entries()].sort(sortTransactionsByFee);
+}
+
+export {signTransaction, verifyTransaction, getTransactionsSortedByFee};
 
