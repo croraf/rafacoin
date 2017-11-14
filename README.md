@@ -7,15 +7,17 @@ To test:
 
   2. Clone repository, 
   
-  3. In project's root directory run 'npm install'
+  3. In frontend and backend directories run 'npm install'
   
-  4. In project's root directory run 'npm run dev' which will compile and run the project and also wait for code changes to recompile and rerun.
-  
+  4. Open two terminals and in each run 'npm run dev' which will compile and run the project and also wait for code changes to recompile and rerun.
+
+  5. UI is available at 'localhost:8100'
   
   
 Current functionality:
 
-  1. Creates several transactions and adds them to transaction's pool.
-  
-  2. Starts mining block after block (M times) including highest fee's transaction in each iteration,
-  finds the satisfying nonce and adds the block to the end of the blockchain.
+  1. UI manager which can create transactions, fetch unconfirmed transactions, start mining process (6 cycles), and fetch the blockchain.
+
+  2. Mining selects current unconfirmed transactions by fee (2 at most).
+
+  3. TODO: Create real transactions (inputs linked to unspent outputs), p2p functionality
