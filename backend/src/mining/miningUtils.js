@@ -12,13 +12,25 @@ const verifyMinedTarget = (nonce, target) => {
 };
 
 const generateCoinbase = () => {
-    const coinbase = {
-        outputs: [
-            {address: 'rafa', value: 25}
-        ]
+
+    const coinbaseTransaction = {
+        transaction: {
+            inputs: [
+                {address: '', value: 25}
+            ],
+            outputs: [
+                {address: 'rafa', value: 25}
+            ],
+            fee: 0
+        }
     };
 
-    return coinbase;
+    const coinbaseTransactionWithHash = [
+        makeHash(JSON.stringify(coinbaseTransaction)), 
+        coinbaseTransaction
+    ];
+
+    return coinbaseTransactionWithHash;
 };
 
 import {log1} from '../utilities';

@@ -8,4 +8,13 @@ const blockchainReducer = (state = [], action) => {
     }
 };
 
-export {blockchainReducer};
+const transactionsReducer = (state = [], action) => {
+    switch(action.type){
+      case 'transactions':
+        return action.transactions;
+      default:
+        return state;
+    }
+}
+
+export {blockchainReducer, transactionsReducer};

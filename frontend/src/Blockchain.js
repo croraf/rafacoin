@@ -7,10 +7,12 @@ const formatTransactionsOutput = (transactions) => {
         <div>transactions: </div>
         <div>
           {transactions.map(((transaction, index) => {
+              console.log('transaction:', transaction);
               return (
                 <div key={index} style={{marginLeft: '20px'}}>
-                    <div>output address: {transaction.outputs[0].address}</div>
-                    <div>output amount: {transaction.outputs[0].value}</div>
+                    <div>transaction hash: {transaction[0]}</div>
+                    <div>output address: {transaction[1].transaction.outputs[0].address}</div>
+                    <div>output amount: {transaction[1].transaction.outputs[0].value}</div>
                 </div>
               );
           }))}

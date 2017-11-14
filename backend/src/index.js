@@ -6,6 +6,8 @@ const wss = new WebSocket.Server({ port: 9000 });
 import {startMining} from './mining/mining';
 import {websockets} from './websockets';
 import {blockchain, blockchainTipHash} from './blockchain';
+import {createTransactions} from './transactions/createTransactions';
+import {getTransactionsSortedByFee} from './transactions/transactions';
 
 wss.on('connection', (ws) => {
 
@@ -30,6 +32,11 @@ wss.on('connection', (ws) => {
                     blockchainTipHashTemp = blockchain[blockchainTipHashTemp].previousHash;
                 }
                 ws.send(JSON.stringify({type: 'blockchain', data: blockchainArray}));
+                break;
+            case 'Make transaction':
+                console.log('making transaction');
+                createTransactions();
+                ws.send(JSON.stringify({type: 'transactions', data: getTransactionsSortedByFee()}));
                 break;
         }
 

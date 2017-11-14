@@ -21,8 +21,8 @@ const createTransactions = () => {
             {address: 'ivan', value: 110}
         ],
         outputs: [
-            {address: 'ivan', value: 99},
-            {address: 'marko', value: 10},
+            {address: 'petar', value: 99},
+            {address: 'ivan', value: 10},
         ],
         fee: 1
     };
@@ -35,8 +35,8 @@ const createTransactions = () => {
             {address: 'ivan', value: 20}
         ],
         outputs: [
-            {address: 'ivan', value: 9},
-            {address: 'marko', value: 10},
+            {address: 'marko', value: 9},
+            {address: 'ivan', value: 10},
         ],
         fee: 0.5
     };
@@ -49,8 +49,8 @@ const createTransactions = () => {
             {address: 'ivan', value: 20}
         ],
         outputs: [
-            {address: 'ivan', value: 9.5},
-            {address: 'marko', value: 10},
+            {address: 'marko', value: 9.5},
+            {address: 'ivan', value: 10},
         ],
         fee: 1.5
     };

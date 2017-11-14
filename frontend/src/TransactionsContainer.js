@@ -2,18 +2,18 @@
 
 import { connect } from 'react-redux';
 
-import {Blockchain} from './Blockchain';
+import {Transactions} from './Transactions';
 
 const mapDispatchToProps = () => ({});
 
 const mapStateToProps = (state) => {
   return {
-    blockchain: state.blockchain
+    transactions: state.transactions
 }};
 
-const BlockchainContainer = connect(
+const TransactionsContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(Blockchain)
+)(Transactions)
 
-export {BlockchainContainer};
+export {TransactionsContainer};

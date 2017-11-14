@@ -1,8 +1,13 @@
 
 
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 
-import {blockchainReducer} from './reducers';
-const store = createStore(blockchainReducer);
+import {blockchainReducer, transactionsReducer} from './reducers';
+const store = createStore(
+    combineReducers({
+        blockchain: blockchainReducer,
+        transactions: transactionsReducer
+    })
+);
 
 export {store};
