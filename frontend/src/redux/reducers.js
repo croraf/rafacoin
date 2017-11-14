@@ -3,6 +3,8 @@ const blockchainReducer = (state = [], action) => {
     switch(action.type){
       case 'blockchain':
         return action.blockchain;
+      case 'newBlock':
+        return [action.block, ...state];
       default:
         return state;
     }

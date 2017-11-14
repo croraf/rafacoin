@@ -1,6 +1,7 @@
 
 import {blockchain, blockchainTipHash, addToBlockchain} from '../blockchain';
 import {mineBlock} from './miningUtils';
+import {makeHash} from '../hashing';
 import {log1} from '../utilities';
 
 import {websockets} from '../websockets';
@@ -13,7 +14,10 @@ const startMining = (index) => {
     const minedBlock = mineBlock();
 
     try {
-        websockets[0].send(JSON.stringify(minedBlock));
+        websockets[0].send(JSON.stringify({
+            type: 'newBlock', 
+            data: [makeHash(JSON.stringify(minedBlock)), minedBlock]}
+        ));
         addToBlockchain(minedBlock);
     } catch (error) {
         console.log('ERROR:',error.reason);

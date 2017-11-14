@@ -10,6 +10,10 @@ const setupWebSocket = () => {
       const parsedMessage = JSON.parse(message.data);
 
       switch (parsedMessage.type) {
+        case 'newBlock':
+          console.log(parsedMessage.data);
+          store.dispatch({type: 'newBlock', block: parsedMessage.data});
+          break;
         case 'blockchain':
 
           console.log(parsedMessage.data);
