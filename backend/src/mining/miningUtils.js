@@ -16,10 +16,10 @@ const generateCoinbase = () => {
     const coinbaseTransaction = {
         transaction: {
             inputs: [
-                {address: '', value: 25}
+                {address: '', amount: 25}
             ],
             outputs: [
-                {address: 'rafa', value: 25}
+                {address: 'rafa', amount: 25}
             ],
             fee: 0
         }

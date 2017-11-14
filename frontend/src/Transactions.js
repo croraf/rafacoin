@@ -23,7 +23,7 @@ class Transactions extends React.Component {
 
     console.log(this.props.transactions);
     return (
-      <div>
+      <div style={{border: '1px solid black'}}>
         <div>Transactions:</div>
         <div>
           {formatTransactionsOutput(this.props.transactions)}

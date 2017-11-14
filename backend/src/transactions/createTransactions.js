@@ -18,11 +18,11 @@ const createTransactions = () => {
 
     let transactionData = {
         inputs: [
-            {address: 'ivan', value: 110}
+            {address: 'ivan', amount: 110}
         ],
         outputs: [
-            {address: 'petar', value: 99},
-            {address: 'ivan', value: 10},
+            {address: 'petar', amount: 99},
+            {address: 'ivan', amount: 10},
         ],
         fee: 1
     };
@@ -32,11 +32,11 @@ const createTransactions = () => {
 
     transactionData = {
         inputs: [
-            {address: 'ivan', value: 20}
+            {address: 'ivan', amount: 20}
         ],
         outputs: [
-            {address: 'marko', value: 9},
-            {address: 'ivan', value: 10},
+            {address: 'marko', amount: 9.5},
+            {address: 'ivan', amount: 10},
         ],
         fee: 0.5
     };
@@ -46,11 +46,11 @@ const createTransactions = () => {
 
     transactionData = {
         inputs: [
-            {address: 'ivan', value: 20}
+            {address: 'ivan', amount: 20}
         ],
         outputs: [
-            {address: 'marko', value: 9.5},
-            {address: 'ivan', value: 10},
+            {address: 'marko', amount: 8.5},
+            {address: 'ivan', amount: 10},
         ],
         fee: 1.5
     };
