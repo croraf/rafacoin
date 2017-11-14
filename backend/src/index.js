@@ -36,6 +36,10 @@ wss.on('connection', (ws) => {
             case 'Make transaction':
                 console.log('making transaction');
                 createTransactions();
+                ws.send(JSON.stringify({note: 'Transactions created!'}));
+                break;
+            case 'Fetch transactions':
+                console.log('fetching transactions');
                 ws.send(JSON.stringify({type: 'transactions', data: getTransactionsSortedByFee()}));
                 break;
         }
