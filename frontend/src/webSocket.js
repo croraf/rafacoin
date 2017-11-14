@@ -5,7 +5,18 @@ const setupWebSocket = () => {
   webSocket = new WebSocket('ws://localhost:9000/');
 
   webSocket.onmessage = (message) => {
-      console.log(JSON.parse(message.data));
+
+      const parsedMessage = JSON.parse(message.data);
+
+      switch (parsedMessage.type) {
+        case 'blockchain':
+          console.log(parsedMessage.data);
+          break;
+      
+        default:
+          console.log(parsedMessage);
+          break;
+      }
   }
 
   webSocket.onclose = () => {
@@ -17,8 +28,8 @@ const setupWebSocket = () => {
   };
 }
 
-const sendMessage = () => {
-    webSocket.send("Start mining!!!"); 
+const sendMessage = (message) => {
+    webSocket.send(message); 
 }
 
 const closeWebsocket = () => {
