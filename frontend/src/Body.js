@@ -2,9 +2,9 @@ import React from 'react';
 
 import {sendMessage, closeWebsocket} from './webSocket';
 
-const Body = () => {
+import {BlockchainContainer} from './BlockchainContainer';
 
-  
+const Body = () => {
 
   return (
     <div>
@@ -13,7 +13,7 @@ const Body = () => {
       <button onClick={closeWebsocket}>Close websocket</button>
       <button onClick={()=>{sendMessage('Fetch blockchain');}}>Fetch blockchain</button>
 
-      
+      <BlockchainContainer />
     </div>
   );
 };

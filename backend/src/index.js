@@ -5,7 +5,7 @@ const wss = new WebSocket.Server({ port: 9000 });
 
 import {startMining} from './mining/mining';
 import {websockets} from './websockets';
-import {blockchain} from './blockchain';
+import {blockchain, blockchainTipHash} from './blockchain';
 
 wss.on('connection', (ws) => {
 
@@ -23,7 +23,13 @@ wss.on('connection', (ws) => {
                 break;
             case 'Fetch blockchain':
                 console.log('fetching blockchain');
-                ws.send(JSON.stringify({type: 'blockchain', data: blockchain}));
+                const blockchainArray = [];
+                let blockchainTipHashTemp = blockchainTipHash;
+                while (blockchainTipHashTemp) {
+                    blockchainArray.push([blockchainTipHashTemp, blockchain[blockchainTipHashTemp]]);
+                    blockchainTipHashTemp = blockchain[blockchainTipHashTemp].previousHash;
+                }
+                ws.send(JSON.stringify({type: 'blockchain', data: blockchainArray}));
                 break;
         }
 

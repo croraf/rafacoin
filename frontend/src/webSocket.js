@@ -1,3 +1,4 @@
+import {store} from './redux/store';
 
 let webSocket;
 
@@ -10,7 +11,9 @@ const setupWebSocket = () => {
 
       switch (parsedMessage.type) {
         case 'blockchain':
+
           console.log(parsedMessage.data);
+          store.dispatch({type: 'blockchain', blockchain: parsedMessage.data});
           break;
       
         default:
