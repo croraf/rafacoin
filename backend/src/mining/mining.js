@@ -5,28 +5,25 @@ import {log1} from '../utilities';
 
 import {websockets} from '../websockets';
 
-const startMining = () => {
+const startMining = (index) => {
 
-    log1('blockchain:', blockchain);
+    log1('Next mining cycle:' + index, '');
 
-    for (let i = 0; i < 5; i++){
+    console.log('tip:', blockchainTipHash);
+    const minedBlock = mineBlock();
 
-        log1('Next mining cycle:' + i, '');
-
-        console.log('tip:', blockchainTipHash);
-        const minedBlock = mineBlock();
-
-        try {
-            websockets[0].send(JSON.stringify(minedBlock));
-            addToBlockchain(minedBlock);
-        } catch (error) {
-            console.log('ERROR:',error.reason);
-        }
-        
+    try {
+        websockets[0].send(JSON.stringify(minedBlock));
+        addToBlockchain(minedBlock);
+    } catch (error) {
+        console.log('ERROR:',error.reason);
     }
 
-
-    log1('blockchain:', blockchain);
+    if (index === 0) {
+        log1('blockchain:', blockchain);
+        websockets[0].send(JSON.stringify({note: 'Mining finished!!!'}));
+    }
+    else {setTimeout(() => {startMining(index-1);}, 10);}
 };
 
 

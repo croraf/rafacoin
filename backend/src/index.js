@@ -20,8 +20,7 @@ wss.on('connection', (ws) => {
             case 'Start mining!!!':
 
                 console.log('starting mining');
-                startMining();
-                ws.send(JSON.stringify({note: 'Mining finished!!!'}));
+                startMining(5);
                 break;
             case 'Fetch blockchain':
                 console.log('fetching blockchain');
