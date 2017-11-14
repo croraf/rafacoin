@@ -1,7 +1,9 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
 
+import {Main} from './Main';
+
 ReactDOM.render(
-  <h1>Hello, rafacoin!</h1>,
+  <Main />,
   document.getElementById('root')
 );
