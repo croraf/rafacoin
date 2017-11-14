@@ -2,13 +2,23 @@ import React from 'react';
 import {Header} from './Header';
 import {Body} from './Body';
 
-const Main = () => {
-  return (
-    <div>
-      <Header/>
-      <Body/>
-    </div>
-  )
-};
+import {setupWebSocket} from './webSocket';
+
+class Main extends React.Component {
+
+  componentDidMount () {
+
+    setupWebSocket();
+  }
+
+  render() {
+    return (
+      <div>
+        <Header/>
+        <Body/>
+      </div>
+    );
+  }
+}
 
 export {Main};

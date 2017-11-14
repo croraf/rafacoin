@@ -1,9 +1,8 @@
 
-import {createTransactions} from './transactions/createTransactions';
+/*import {createTransactions} from './transactions/createTransactions';
 
 
-createTransactions();
-
+createTransactions();*/
 
 
 
@@ -11,23 +10,31 @@ import {blockchain, blockchainTipHash, addToBlockchain} from './blockchain';
 import {mineBlock} from './mining';
 import {log1} from './utilities';
 
-log1('blockchain:', blockchain);
+import {websockets} from './websockets';
 
-for (let i = 0; i < 10; i++){
+const startMining = () => {
 
-    log1('Next mining cycle:' + i, '');
+    log1('blockchain:', blockchain);
 
-    console.log('tip:', blockchainTipHash);
-    const minedBlock = mineBlock();
+    for (let i = 0; i < 10; i++){
 
-    try {
-        addToBlockchain(minedBlock);
-    } catch (error) {
-        console.log(error.reason);
+        log1('Next mining cycle:' + i, '');
+
+        console.log('tip:', blockchainTipHash);
+        const minedBlock = mineBlock();
+
+        try {
+            websockets[0].send(JSON.stringify(minedBlock));
+            addToBlockchain(minedBlock);
+        } catch (error) {
+            console.log('ERROR:',error.reason);
+        }
+        
     }
-    
-}
 
 
-log1('blockchain:', blockchain);
+    log1('blockchain:', blockchain);
+};
 
+
+export {startMining};
