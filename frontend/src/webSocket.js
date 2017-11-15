@@ -20,7 +20,7 @@ const setupWebSocket = () => {
           store.dispatch({type: 'blockchain', blockchain: parsedMessage.data});
           break;
         
-        case 'transactions':
+        case 'unconfirmed transactions':
           console.log(parsedMessage.data);
           store.dispatch({type: 'transactions', transactions: parsedMessage.data});
           break;
@@ -41,7 +41,7 @@ const setupWebSocket = () => {
 }
 
 const sendMessage = (message) => {
-    webSocket.send(message); 
+    webSocket.send(JSON.stringify(message)); 
 }
 
 const closeWebsocket = () => {

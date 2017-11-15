@@ -14,9 +14,16 @@ wss.on('connection', (ws) => {
     websockets.push(ws);
 
     ws.on('message', message => {
-        console.log('received: %s', message);
+        const parsedMessage = JSON.parse(message);
+
+        console.log('received:', parsedMessage);
         
-        switch (message) {
+        switch (parsedMessage.type) {
+            case 'create_transaction':
+                console.log('making transaction');
+                createTransactions();
+                ws.send(JSON.stringify({note: 'Transactions created!'}));
+                break;
             case 'Start mining!!!':
 
                 console.log('starting mining');
@@ -32,14 +39,9 @@ wss.on('connection', (ws) => {
                 }
                 ws.send(JSON.stringify({type: 'blockchain', data: blockchainArray}));
                 break;
-            case 'Make transaction':
-                console.log('making transaction');
-                createTransactions();
-                ws.send(JSON.stringify({note: 'Transactions created!'}));
-                break;
-            case 'Fetch transactions':
-                console.log('fetching transactions');
-                ws.send(JSON.stringify({type: 'transactions', data: getTransactionsSortedByFee()}));
+            case 'Fetch unconfirmed transactions':
+                console.log('fetching unconfirmed transactions');
+                ws.send(JSON.stringify({type: 'unconfirmed transactions', data: getTransactionsSortedByFee()}));
                 break;
         }
 

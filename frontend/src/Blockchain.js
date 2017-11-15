@@ -52,16 +52,36 @@ const formatBlockTransactions = (transactions) => {
     );
 };
 
-const formatBlock = (item) => {
-    return (
-      <div key={item[0]}>
-          <div style={{fontWeight: 'bold'}}>block hash: {item[0]}</div> 
-          <div>previousHash: {item[1].previousHash}</div> 
-          <div>nonce: {item[1].nonce}</div> 
-          <div>target: {item[1].target}</div> 
-          {formatBlockTransactions(item[1].transactions)} 
-      </div> 
-    );
+class Block extends React.Component {
+
+    state = {
+        expanded: false
+    };
+
+    toggleExpand = () => {
+        this.setState({
+            expanded: !this.state.expanded
+        });
+        console.log(this.state);
+    }
+
+    render () {
+
+        const {item} = this.props;
+        return (
+            <div>
+                <div style={{cursor: 'pointer'}} onClick={this.toggleExpand}>
+                    <div style={{fontWeight: 'bold'}}>block hash: {item[0]}</div> 
+                    <div style={{marginLeft: '20px'}}>previousHash: {item[1].previousHash}</div>
+                </div>
+                <div style={{display: this.state.expanded ? 'block' : 'none', marginLeft: '20px'}}> 
+                    <div>nonce: {item[1].nonce}</div> 
+                    <div>target: {item[1].target}</div> 
+                    {formatBlockTransactions(item[1].transactions)} 
+                </div>
+            </div> 
+        );
+    }
 };
 
 class Blockchain extends React.Component {
@@ -71,8 +91,8 @@ class Blockchain extends React.Component {
     console.log(this.props.blockchain);
     return (
       <div style={{border: '1px solid black'}}>
-        <div>Blockchain:</div>
-        {this.props.blockchain.map(item => formatBlock(item))}
+        <div style={{borderBottom: '1px solid black'}}>Blockchain:</div>
+        {this.props.blockchain.map(item => <Block key={item[0]} item={item} />)}
       </div>
     );
   } 
