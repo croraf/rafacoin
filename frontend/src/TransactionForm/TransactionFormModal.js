@@ -1,7 +1,5 @@
 import React from 'react';
 
-import {sendMessage, closeWebsocket} from './webSocket';
-
 import Dialog from 'material-ui/Dialog';
 
 import {TransactionForm} from './TranasactionForm';

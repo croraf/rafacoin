@@ -90,7 +90,7 @@ class Blockchain extends React.Component {
 
     console.log(this.props.blockchain);
     return (
-      <div style={{border: '1px solid black'}}>
+      <div style={{border: '1px solid black', overflowX: 'auto'}}>
         <div style={{borderBottom: '1px solid black'}}>Blockchain:</div>
         {this.props.blockchain.map(item => <Block key={item[0]} item={item} />)}
       </div>

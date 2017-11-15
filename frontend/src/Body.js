@@ -2,13 +2,13 @@ import React from 'react';
 
 import {sendMessage, closeWebsocket} from './webSocket';
 
-import {BlockchainContainer} from './BlockchainContainer';
-import {TransactionsContainer} from './TransactionsContainer';
+import {BlockchainContainer} from './Blockchain/BlockchainContainer';
+import {TransactionsContainer} from './TransactionsPool/TransactionsContainer';
+import {TransactionFormModal} from './TransactionForm/TransactionFormModal';
 
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import Button from 'material-ui/RaisedButton';
 
-import {TransactionFormModal} from './TransactionFormModal';
 
 const Body = () => {
 

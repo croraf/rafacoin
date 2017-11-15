@@ -56,7 +56,7 @@ class Transactions extends React.Component {
     console.log(this.props.transactions);
     return (
       <div style={{border: '1px solid black', overflowX: 'auto'}}>
-        <div style={{borderBottom: '1px solid black'}}>Unconfirmed transactions:</div>
+        <div style={{borderBottom: '1px solid black'}}>Unconfirmed transactions pool:</div>
         <div>
           {formatBlockTransactions(this.props.transactions)}
         </div>
