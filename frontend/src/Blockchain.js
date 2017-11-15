@@ -7,7 +7,7 @@ const formatBlockInputs = (inputs) => {
             return (
               <div key={index} style={{marginLeft: '20px'}}>
                   <div>address: {input.address}</div>
-                  <div>amount: {input.amount}</div>
+                  <div>output index: {input.outputIndex}</div>
               </div>
             );
          })}

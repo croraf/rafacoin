@@ -6,7 +6,7 @@ const wss = new WebSocket.Server({ port: 9000 });
 import {startMining} from './mining/mining';
 import {websockets} from './websockets';
 import {blockchain, blockchainTipHash} from './blockchain';
-import {createTransactions} from './transactions/createTransactions';
+import {createTransaction} from './transactions/createTransactions';
 import {getTransactionsSortedByFee} from './transactions/transactions';
 
 wss.on('connection', (ws) => {
@@ -21,7 +21,7 @@ wss.on('connection', (ws) => {
         switch (parsedMessage.type) {
             case 'create_transaction':
                 console.log('making transaction');
-                createTransactions();
+                createTransaction(parsedMessage.data);
                 ws.send(JSON.stringify({note: 'Transactions created!'}));
                 break;
             case 'Start mining!!!':

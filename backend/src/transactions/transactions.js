@@ -1,3 +1,4 @@
+
 import {generateKeys, signData, verifySignature} from './signing';
 import {transactionPool} from './transactionsPool';
 

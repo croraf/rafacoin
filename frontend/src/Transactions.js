@@ -1,19 +1,51 @@
 import React from 'react';
 
-const formatTransactionsOutput = (transactions) => {
+const formatBlockInputs = (inputs) => {
     return (
-      transactions.map(item => {
+      <div>
+         {inputs.map((input, index) => {
+            return (
+              <div key={index} style={{marginLeft: '20px'}}>
+                  <div>address: {input.address}</div>
+                  <div>output index: {input.outputIndex}</div>
+              </div>
+            );
+         })}
+      </div>
+    )
+}
 
-        console.log(item);
-        return (
-          <div key={item[0]}>
-              <div style={{fontWeight: 'bold'}}>transaction hash: {item[0]}</div>
-              <div>transaction input: {item[1].transaction.inputs[0].address}</div>
-              <div>transaction output: {item[1].transaction.outputs[0].address}</div>
-              <div>transaction fee: {item[1].transaction.fee}</div>
-          </div>
-        );
-      })
+const formatBlockOutputs = (outputs) => {
+    return (
+        <div>
+            {outputs.map((output, index) => {
+                return (
+                    <div key={index} style={{marginLeft: '20px'}}>
+                      <div>address: {output.address}</div>
+                      <div>amount: {output.amount}</div>
+                    </div>
+                );
+            })}
+        </div>
+      )
+}
+
+const formatBlockTransactions = (transactions) => {
+
+    return (
+        <div>
+            {transactions.map(((transaction, index) => {
+                console.log('transaction:', transaction);
+                return (
+                    <div key={index}>
+                        <div style={{fontWeight: 'bold'}}>hash: {transaction[0]}</div>
+                        <div>inputs: {formatBlockInputs(transaction[1].transaction.inputs)}</div>
+                        <div>outputs: {formatBlockOutputs(transaction[1].transaction.outputs)}</div>
+                        <div>fee: {transaction[1].transaction.fee}</div>
+                    </div>
+                );
+            }))}
+        </div>
     );
 };
 
@@ -23,10 +55,10 @@ class Transactions extends React.Component {
 
     console.log(this.props.transactions);
     return (
-      <div style={{border: '1px solid black'}}>
+      <div style={{border: '1px solid black', overflowX: 'auto'}}>
         <div style={{borderBottom: '1px solid black'}}>Unconfirmed transactions:</div>
         <div>
-          {formatTransactionsOutput(this.props.transactions)}
+          {formatBlockTransactions(this.props.transactions)}
         </div>
       </div>
     );

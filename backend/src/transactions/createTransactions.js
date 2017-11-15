@@ -9,16 +9,28 @@ const signAndAddTransaction = (transactionData) => {
 
     const signedTransaction = signTransaction(transactionData);
 
-    //transactionPool[makeHash(JSON.stringify(signedTransaction))] = signedTransaction;
-
     transactionPool.set(makeHash(JSON.stringify(signedTransaction)), signedTransaction);
 };
 
-const createTransactions = () => {
+const createTransaction = (data) => {
 
+    console.log(data);
     let transactionData = {
         inputs: [
-            {address: 'ivan', amount: 110}
+            {address: data.referenceHash, outputIndex: data.referenceOutputIndex}
+        ],
+        outputs: [
+            {address: data.output1Address, amount: data.output1Amount},
+            {address: data.output2Address, amount: data.outpu2Amount},
+        ],
+        fee: data.fee
+    };
+
+    signAndAddTransaction(transactionData);
+    
+    transactionData = {
+        inputs: [
+            {address: 'ivan', outputIndex: 1}
         ],
         outputs: [
             {address: 'petar', amount: 99},
@@ -32,7 +44,7 @@ const createTransactions = () => {
 
     transactionData = {
         inputs: [
-            {address: 'ivan', amount: 20}
+            {address: 'ivan', outputIndex: 0}
         ],
         outputs: [
             {address: 'marko', amount: 9.5},
@@ -46,7 +58,7 @@ const createTransactions = () => {
 
     transactionData = {
         inputs: [
-            {address: 'ivan', amount: 20}
+            {address: 'ivan', outputIndex: 1}
         ],
         outputs: [
             {address: 'marko', amount: 8.5},
@@ -66,6 +78,6 @@ const createTransactions = () => {
     }
 };
 
-export {createTransactions};
+export {createTransaction};
 
 
