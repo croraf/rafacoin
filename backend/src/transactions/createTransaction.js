@@ -9,7 +9,7 @@ import {websockets} from '../websockets';
 
 const createTransaction = (data) => {
 
-    console.log(data);
+    console.log('transaction data:', data);
     let transactionData = {
         inputs: [
             {address: data.referenceHash, outputIndex: data.referenceOutputIndex}

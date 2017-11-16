@@ -9,6 +9,7 @@ const blockchain = {
 
 let blockchainTipHash = 'c00ee95ff114855f2cae409ebb44c8f812b2505e144ccb076feddfdcc08053e3';
 
+let blockchainHeight = 0;
 
 const validateBlock = (block, hash) => {
     if (block.previousHash !== blockchainTipHash) {
@@ -35,6 +36,7 @@ const addToBlockchain = (block) => {
     if (validateBlock(block, hash)) {
         blockchain[hash] = block;
         blockchainTipHash = hash;
+        blockchainHeight++;
         log1('block added:' + hash, block);
         return;
     } else {
@@ -42,4 +44,4 @@ const addToBlockchain = (block) => {
     }
 };
 
-export {addToBlockchain, blockchain, blockchainTipHash};
+export {addToBlockchain, blockchain, blockchainTipHash, blockchainHeight};

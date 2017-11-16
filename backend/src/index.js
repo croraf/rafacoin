@@ -22,7 +22,6 @@ wss.on('connection', (ws) => {
             case 'create_transaction':
                 console.log('making transaction');
                 createTransaction(parsedMessage.data);
-                ws.send(JSON.stringify({note: 'Transactions created!'}));
                 break;
             case 'start_mining':
                 console.log('starting mining');

@@ -1,5 +1,5 @@
 
-import {blockchain, blockchainTipHash} from '../blockchain';
+import {blockchain, blockchainTipHash, blockchainHeight} from '../blockchain';
 import {makeHash} from '../hashing';
 import {selectTransactionsToMine, removeTransactionsFromPool} from '../transactions/selectTransactions';
 
@@ -16,7 +16,7 @@ const generateCoinbase = () => {
     const coinbaseTransaction = {
         transaction: {
             inputs: [
-                {address: '', amount: 25}
+                {address: blockchainHeight+1, outputIndex: -1}
             ],
             outputs: [
                 {address: 'rafa', amount: 25}

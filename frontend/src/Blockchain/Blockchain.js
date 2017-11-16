@@ -87,7 +87,7 @@ class Blockchain extends React.Component {
 
   render () {
 
-    console.log(this.props.blockchain);
+    console.log('blockchain:', this.props.blockchain);
     return (
       <div style={{border: '1px solid black', overflowX: 'auto'}}>
         <div style={{borderBottom: '1px solid black'}}>Blockchain:</div>

@@ -35,7 +35,6 @@ const formatBlockTransactions = (transactions) => {
     return (
         <div>
             {transactions.map(((transaction, index) => {
-                console.log('transaction:', transaction);
                 return (
                     <div key={index}>
                         <div style={{fontWeight: 'bold'}}>hash: {transaction[0]}</div>
@@ -53,7 +52,7 @@ class Transactions extends React.Component {
 
   render () {
 
-    console.log(this.props.transactions);
+    console.log('transactions:', this.props.transactions);
     return (
       <div style={{border: '1px solid black', overflowX: 'auto'}}>
         <div style={{borderBottom: '1px solid black'}}>Unconfirmed transactions pool:</div>
