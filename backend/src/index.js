@@ -6,7 +6,7 @@ const wss = new WebSocket.Server({ port: 9000 });
 import {startMining} from './mining/mining';
 import {websockets} from './websockets';
 import {blockchain, blockchainTipHash} from './blockchain';
-import {createTransaction} from './transactions/createTransactions';
+import {createTransaction} from './transactions/createTransaction';
 import {getTransactionsSortedByFee} from './transactions/transactions';
 
 wss.on('connection', (ws) => {
@@ -24,12 +24,11 @@ wss.on('connection', (ws) => {
                 createTransaction(parsedMessage.data);
                 ws.send(JSON.stringify({note: 'Transactions created!'}));
                 break;
-            case 'Start mining!!!':
-
+            case 'start_mining':
                 console.log('starting mining');
                 startMining(5);
                 break;
-            case 'Fetch blockchain':
+            case 'sync_blockchain':
                 console.log('fetching blockchain');
                 const blockchainArray = [];
                 let blockchainTipHashTemp = blockchainTipHash;
@@ -39,7 +38,7 @@ wss.on('connection', (ws) => {
                 }
                 ws.send(JSON.stringify({type: 'blockchain', data: blockchainArray}));
                 break;
-            case 'Fetch unconfirmed transactions':
+            case 'sync_unconfirmed_transactions':
                 console.log('fetching unconfirmed transactions');
                 ws.send(JSON.stringify({type: 'unconfirmed transactions', data: getTransactionsSortedByFee()}));
                 break;

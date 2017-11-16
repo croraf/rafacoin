@@ -17,13 +17,13 @@ const Body = () => {
 
             <Row style={{marginBottom: '10px'}}>
                 <Col xs={3}>
-                    <Button fullWidth={true} primary={true} onClick={()=>{sendMessage({type: 'Start mining!!!'});}}>Start mining</Button>
+                    <Button fullWidth={true} primary={true} onClick={()=>{sendMessage({type: 'start_mining'});}}>Start mining</Button>
                 </Col>
                 <Col xs={3}>
-                    <Button fullWidth={true} primary={true} onClick={()=>{sendMessage({type: 'Fetch blockchain'});}}>Fetch blockchain</Button>
+                    <Button fullWidth={true} primary={true} onClick={()=>{sendMessage({type: 'sync_blockchain'});}}>Sync blockchain</Button>
                 </Col>
                 <Col xs={3}>
-                    <Button style={{wordWrap: 'none'}} fullWidth={true} primary={true} onClick={()=>{sendMessage({type: 'Fetch unconfirmed transactions'});}}>Fetch unconfirmed transactions</Button>
+                    <Button style={{wordWrap: 'none'}} fullWidth={true} primary={true} onClick={()=>{sendMessage({type: 'sync_unconfirmed_transactions'});}}>Sync unconfirmed transactions</Button>
                 </Col>
             </Row>
                 

@@ -3,41 +3,47 @@ import {store} from './redux/store';
 let webSocket;
 
 const setupWebSocket = () => {
-  webSocket = new WebSocket('ws://localhost:9000/');
+    webSocket = new WebSocket('ws://localhost:9000/');
 
-  webSocket.onmessage = (message) => {
+    webSocket.onmessage = (message) => {
 
-      const parsedMessage = JSON.parse(message.data);
+        const parsedMessage = JSON.parse(message.data);
 
-      switch (parsedMessage.type) {
-        case 'newBlock':
-          console.log(parsedMessage.data);
-          store.dispatch({type: 'newBlock', block: parsedMessage.data});
-          break;
-        case 'blockchain':
+        switch (parsedMessage.type) {
+            case 'newBlock':
+              console.log(parsedMessage.data);
+              store.dispatch({type: 'newBlock', block: parsedMessage.data});
+              break;
+            case 'blockchain':
 
-          console.log(parsedMessage.data);
-          store.dispatch({type: 'blockchain', blockchain: parsedMessage.data});
-          break;
-        
-        case 'unconfirmed transactions':
-          console.log(parsedMessage.data);
-          store.dispatch({type: 'transactions', transactions: parsedMessage.data});
-          break;
+              console.log(parsedMessage.data);
+              store.dispatch({type: 'blockchain', blockchain: parsedMessage.data});
+              break;
+            
+            case 'sync transactions':
+              /*console.log(parsedMessage.data);*/
+              /*store.dispatch({type: 'transactions', transactions: parsedMessage.data});*/
+              break;
 
-        default:
-          console.log(parsedMessage);
-          break;
-      }
-  }
-
-  webSocket.onclose = () => {
-      console.log('Socket closed');
+            case 'newTransaction':
+                store.dispatch({type: 'newTransaction', transaction: parsedMessage.data })
+                break;
+            case 'deleteTransaction':
+                store.dispatch({type: 'deleteTransaction', transactionHash: parsedMessage.data});
+                break;
+            default:
+              console.log(parsedMessage);
+              break;
+        }
     }
 
-  webSocket.onopen = (event) => {
-    console.log('Socket opened');
-  };
+    webSocket.onclose = () => {
+        console.log('Socket closed');
+      }
+
+    webSocket.onopen = (event) => {
+      console.log('Socket opened');
+    };
 }
 
 const sendMessage = (message) => {

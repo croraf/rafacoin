@@ -3,6 +3,7 @@ import {transactionPool} from './transactionsPool';
 import {getTransactionsSortedByFee} from './transactions';
 import {makeHash} from '../hashing';
 import {log1} from '../utilities';
+import {websockets} from '../websockets';
 
 const selectTransactionsToMine = () => {
 
@@ -26,6 +27,7 @@ const removeTransactionsFromPool = (minedTransactions) => {
     minedTransactions.forEach(transaction => {
 
         transactionPool.delete(transaction[0]);
+        websockets[0].send(JSON.stringify({type: 'deleteTransaction', data: transaction[0]}));
     });
 
 };

@@ -36,17 +36,16 @@ const formatBlockTransactions = (transactions) => {
       <div>
         <div>transactions: </div>
         <div>
-          {transactions.map(((transaction, index) => {
-              console.log('transaction:', transaction);
-              return (
-                <div key={index} style={{marginLeft: '20px'}}>
-                    <div>hash: {transaction[0]}</div>
-                    <div>inputs: {formatBlockInputs(transaction[1].transaction.inputs)}</div>
-                    <div>outputs: {formatBlockOutputs(transaction[1].transaction.outputs)}</div>
-                    <div>fee: {transaction[1].transaction.fee}</div>
-                </div>
-              );
-          }))}
+            {transactions.map(((transaction, index) => {
+                    return (
+                        <div key={index} style={{marginLeft: '20px'}}>
+                            <div>hash: {transaction[0]}</div>
+                            <div>inputs: {formatBlockInputs(transaction[1].transaction.inputs)}</div>
+                            <div>outputs: {formatBlockOutputs(transaction[1].transaction.outputs)}</div>
+                            <div>fee: {transaction[1].transaction.fee}</div>
+                        </div>
+                    );
+            }))}
         </div>
       </div>
     );

@@ -5,11 +5,15 @@ import {transactionPool} from './transactionsPool';
 import {log1} from '../utilities';
 import {makeHash} from '../hashing';
 
+import {websockets} from '../websockets';
+
 const signAndAddTransaction = (transactionData) => {
 
     const signedTransaction = signTransaction(transactionData);
 
     transactionPool.set(makeHash(JSON.stringify(signedTransaction)), signedTransaction);
+
+    return [makeHash(JSON.stringify(signedTransaction)), signedTransaction];
 };
 
 const createTransaction = (data) => {
@@ -26,7 +30,9 @@ const createTransaction = (data) => {
         fee: data.fee
     };
 
-    signAndAddTransaction(transactionData);
+    let transaction = signAndAddTransaction(transactionData);
+    websockets[0].send(JSON.stringify({type: 'newTransaction', data: transaction}));
+
     
     transactionData = {
         inputs: [
@@ -39,8 +45,8 @@ const createTransaction = (data) => {
         fee: 1
     };
     
-    signAndAddTransaction(transactionData);
-
+    transaction = signAndAddTransaction(transactionData);
+    websockets[0].send(JSON.stringify({type: 'newTransaction', data: transaction}));
 
     transactionData = {
         inputs: [
@@ -53,7 +59,8 @@ const createTransaction = (data) => {
         fee: 0.5
     };
     
-    signAndAddTransaction(transactionData);
+    transaction = signAndAddTransaction(transactionData);
+    websockets[0].send(JSON.stringify({type: 'newTransaction', data: transaction}));
 
 
     transactionData = {
@@ -67,7 +74,8 @@ const createTransaction = (data) => {
         fee: 1.5
     };
     
-    signAndAddTransaction(transactionData);
+    transaction = signAndAddTransaction(transactionData);
+    websockets[0].send(JSON.stringify({type: 'newTransaction', data: transaction}));
     
     const sortedTransactions = getTransactionsSortedByFee();
     
