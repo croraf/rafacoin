@@ -18,7 +18,8 @@ const transactionsReducer = (state = [], action) => {
         return [action.transaction, ...state];
       case 'deleteTransaction':
         console.log('remove from pool:', action.transactionHash);
-        return state.filter(item => {item[0] !== action.transactionHash});
+        console.log(state);
+        return state.filter(item => {return item[0] !== action.transactionHash});
       default:
         return state;
     }

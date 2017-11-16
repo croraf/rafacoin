@@ -1,4 +1,4 @@
-
+/*
 import {signTransaction, getTransactionsSortedByFee} from './transactions';
 import {transactionPool} from './transactionsPool';
 
@@ -88,4 +88,4 @@ const createTransaction = (data) => {
 
 export {createTransaction};
 
-
+*/

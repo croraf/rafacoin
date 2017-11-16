@@ -24,6 +24,8 @@ const selectTransactionsToMine = () => {
 };
 
 const removeTransactionsFromPool = (minedTransactions) => {
+
+    console.log('minedTransactions:', minedTransactions);
     minedTransactions.forEach(transaction => {
 
         transactionPool.delete(transaction[0]);
