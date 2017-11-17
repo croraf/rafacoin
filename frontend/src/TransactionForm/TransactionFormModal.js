@@ -32,7 +32,8 @@ class TransactionFormModal extends React.Component {
                         modal={false}
                         open={this.state.open}
                         onRequestClose={this.handleClose}
-                        actions={<RemoteSubmitButton handleClose={this.handleClose}/>} >
+                        actions={<RemoteSubmitButton handleClose={this.handleClose}/>}
+                        contentStyle={{width: '95%', maxWidth: '1400px'}}>
                         
                         <TransactionForm/>
                         

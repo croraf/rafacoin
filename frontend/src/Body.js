@@ -27,7 +27,7 @@ const Body = () => {
                     <Button style={{wordWrap: 'none'}} fullWidth={true} primary={true} onClick={()=>{sendMessage({type: 'sync_unconfirmed_transactions'});}}>Sync unconfirmed transactions</Button>
                 </Col>
                 <Col xs={3}>
-                    <Button fullWidth={true} primary={true} onClick={()=>{sendMessage({type: 'UTxO'});}}>Get UTxO</Button>
+                    <Button fullWidth={true} primary={true} onClick={()=>{sendMessage({type: 'UTxO'});}}>Sync UTxO</Button>
                 </Col>
             </Row>
                 

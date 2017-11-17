@@ -20,6 +20,7 @@ class MySelectComponent extends React.Component {
                   
                   floatingLabelFixed={true}
                   floatingLabelText={this.props.label}
+                  style={{width: '95%'}}
                 >
                     {this.props.selectItems.map((item) => <MenuItem value={item} key={item} primaryText={item.toString()} />)}
                 </SelectField>
