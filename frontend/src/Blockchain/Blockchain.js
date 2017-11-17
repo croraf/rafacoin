@@ -61,7 +61,6 @@ class Block extends React.Component {
         this.setState({
             expanded: !this.state.expanded
         });
-        console.log(this.state);
     }
 
     render () {

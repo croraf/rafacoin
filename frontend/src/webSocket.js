@@ -31,6 +31,9 @@ const setupWebSocket = () => {
             case 'deleteTransaction':
                 store.dispatch({type: 'deleteTransaction', transactionHash: parsedMessage.data});
                 break;
+            case 'UTxO':
+                store.dispatch({type: 'UTxO', data: parsedMessage.data});
+                break;
             default:
               console.log(parsedMessage);
               break;

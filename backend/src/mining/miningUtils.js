@@ -3,6 +3,8 @@ import {blockchain, blockchainTipHash, blockchainHeight} from '../blockchain';
 import {makeHash} from '../hashing';
 import {selectTransactionsToMine, removeTransactionsFromPool} from '../transactions/selectTransactions';
 
+import {addTransactionsToUTxO} from '../transactions/unspentTransactionOutputs';
+
 const verifyMinedTarget = (nonce, target) => {
     if (nonce <= target) {
         return true;
@@ -55,13 +57,14 @@ const mineBlock = () => {
     let mined = false;
     let miningTries = 0;
     let nonce = 0;
+    let nextBlockHash;
 
     while (!mined) {
 
         miningTries++;
 
         nextBlock.nonce = nonce;
-        const nextBlockHash = makeHash(JSON.stringify(nextBlock));
+        nextBlockHash = makeHash(JSON.stringify(nextBlock));
         mined = verifyMinedTarget(nextBlockHash, nextBlock.target);
 
         nonce++;
@@ -70,6 +73,7 @@ const mineBlock = () => {
     if (mined) {
 
         removeTransactionsFromPool(selectedTransactions);
+        addTransactionsToUTxO(transactions, nextBlockHash);
         return nextBlock;
     } else {
         throw {error: 'mining error'};

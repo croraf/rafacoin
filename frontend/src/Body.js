@@ -5,6 +5,7 @@ import {sendMessage, closeWebsocket} from './webSocket';
 import {BlockchainContainer} from './Blockchain/BlockchainContainer';
 import {TransactionsContainer} from './TransactionsPool/TransactionsContainer';
 import {TransactionFormModal} from './TransactionForm/TransactionFormModal';
+import {UTxOContainer} from './UTxO/UTxOContainer';
 
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import Button from 'material-ui/RaisedButton';
@@ -25,6 +26,9 @@ const Body = () => {
                 <Col xs={3}>
                     <Button style={{wordWrap: 'none'}} fullWidth={true} primary={true} onClick={()=>{sendMessage({type: 'sync_unconfirmed_transactions'});}}>Sync unconfirmed transactions</Button>
                 </Col>
+                <Col xs={3}>
+                    <Button fullWidth={true} primary={true} onClick={()=>{sendMessage({type: 'UTxO'});}}>Get UTxO</Button>
+                </Col>
             </Row>
                 
             <TransactionFormModal />
@@ -32,6 +36,7 @@ const Body = () => {
             <Row>
                 <Col xs={6}>
                     <TransactionsContainer />
+                    <UTxOContainer />
                 </Col>
                 <Col xs={6}>
                     <BlockchainContainer />
