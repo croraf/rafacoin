@@ -6,7 +6,7 @@ const formatBlockInputs = (inputs) => {
          {inputs.map((input, index) => {
             return (
               <div key={index} style={{marginLeft: '20px'}}>
-                  <div>address: {input.address}</div>
+                  <div>txHash: {input.txHash}</div>
                   <div>output index: {input.outputIndex}</div>
               </div>
             );

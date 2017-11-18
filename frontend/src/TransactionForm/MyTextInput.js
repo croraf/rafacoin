@@ -9,13 +9,11 @@ class MyTextInput extends React.Component {
 
     render () {
         return (
-            <Col xs={6}>
-                <TextField 
-                    {...this.props.input}
-                    floatingLabelFixed={true}
-                    floatingLabelText={this.props.label} 
-                    style={{width: '95%'}}/>
-            </Col>
+            <TextField 
+                {...this.props.input}
+                floatingLabelFixed={true}
+                floatingLabelText={this.props.label} 
+                style={{width: '95%'}}/>
         );
     }
 }

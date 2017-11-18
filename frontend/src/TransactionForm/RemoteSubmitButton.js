@@ -7,11 +7,13 @@ import Button from 'material-ui/RaisedButton';
 
 const RemoteSubmitButton = ({ dispatch, handleClose }) => (
   
-    <Button onClick={() => {
-        console.log('submit'); 
-        handleClose();
-        dispatch(submit('transaction'));
-    }}>
+    <Button 
+        primary={true}
+        onClick={() => {
+            console.log('submit'); 
+            handleClose();
+            dispatch(submit('transaction'));
+        }}>
         Broadcast transaction
     </Button>
 )

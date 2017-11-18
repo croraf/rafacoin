@@ -12,19 +12,17 @@ class MySelectComponent extends React.Component {
         console.log('output index select items:', this.props.selectItems);
 
         return (
-            <Col xs={6}>
-                <SelectField
-                  {...this.props.input}
-                  onChange={(event, index, value)=> {this.props.input.onChange(value);}}
-                  maxHeight={200}
-                  
-                  floatingLabelFixed={true}
-                  floatingLabelText={this.props.label}
-                  style={{width: '95%'}}
-                >
-                    {this.props.selectItems.map((item) => <MenuItem value={item} key={item} primaryText={item.toString()} />)}
-                </SelectField>
-            </Col>
+            <SelectField
+                {...this.props.input}
+                onChange={(event, index, value)=> {this.props.input.onChange(value);}}
+                maxHeight={200}
+                
+                floatingLabelFixed={true}
+                floatingLabelText={this.props.label}
+                style={{width: '95%'}}
+            >
+                {this.props.selectItems.map((item) => <MenuItem value={item} key={item} primaryText={item.toString()} />)}
+            </SelectField>
         );
     }
 }

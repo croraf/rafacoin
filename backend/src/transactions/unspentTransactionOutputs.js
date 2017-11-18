@@ -24,13 +24,13 @@ const removeOldUTxO = (minedTransactions) => {
     minedTransactions.forEach(transaction => {
 
         transaction[1].transaction.inputs.forEach(input => {
-            console.log(input);   
-            const unspentTransaction = unspentTxOutputs.get(input.address);
+            console.log('mined transaction input:', input);   
+            const unspentTransaction = unspentTxOutputs.get(input.txHash);
             unspentTransaction.unspentOutputs = unspentTransaction.unspentOutputs.filter(
                 output => output !== input.outputIndex
             );
 
-            if (unspentTransaction.unspentOutputs.length === 0) {unspentTxOutputs.delete(input.address);}
+            if (unspentTransaction.unspentOutputs.length === 0) {unspentTxOutputs.delete(input.txHash);}
             else {unspentTxOutputs.set(input.address, unspentTransaction);}
         });   
     });

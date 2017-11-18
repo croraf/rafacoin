@@ -18,7 +18,7 @@ const generateCoinbase = () => {
     const coinbaseTransaction = {
         transaction: {
             inputs: [
-                {address: 'coinbase', outputIndex: blockchainHeight+1}
+                {txHash: 'coinbase', outputIndex: blockchainHeight+1}
             ],
             outputs: [
                 {address: 'rafa', amount: 25}
