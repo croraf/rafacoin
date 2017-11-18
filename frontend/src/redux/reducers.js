@@ -35,4 +35,14 @@ const UTxOReducer = (state = [], action) => {
     }
 }
 
-export {blockchainReducer, transactionsReducer, UTxOReducer};
+const websocketReducer = (state = 'closed', action) => {
+    switch(action.type){
+      case 'websocket':
+        console.log(action.data);
+        return action.data;
+      default:
+        return state;
+    }
+}
+
+export {blockchainReducer, transactionsReducer, UTxOReducer, websocketReducer};

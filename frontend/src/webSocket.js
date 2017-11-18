@@ -41,10 +41,12 @@ const setupWebSocket = () => {
     }
 
     webSocket.onclose = () => {
+        store.dispatch({type: 'websocket', data: 'closed'});
         console.log('Socket closed');
       }
 
     webSocket.onopen = (event) => {
+        store.dispatch({type: 'websocket', data: 'open'});
       console.log('Socket opened');
     };
 }

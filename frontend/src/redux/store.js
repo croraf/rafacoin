@@ -2,7 +2,7 @@
 
 import { createStore, combineReducers } from 'redux';
 
-import {blockchainReducer, transactionsReducer, UTxOReducer} from './reducers';
+import {blockchainReducer, transactionsReducer, UTxOReducer, websocketReducer} from './reducers';
 
 import { reducer as formReducer } from 'redux-form';
 
@@ -11,7 +11,8 @@ const store = createStore(
         blockchain: blockchainReducer,
         transactions: transactionsReducer,
         UTxO: UTxOReducer,
-        form: formReducer
+        form: formReducer,
+        websocket: websocketReducer
     }),
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );

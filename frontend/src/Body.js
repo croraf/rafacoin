@@ -24,7 +24,7 @@ const Body = () => {
                     <Button fullWidth={true} primary={true} onClick={()=>{sendMessage({type: 'sync_blockchain'});}}>Sync blockchain</Button>
                 </Col>
                 <Col xs={3}>
-                    <Button style={{wordWrap: 'none'}} fullWidth={true} primary={true} onClick={()=>{sendMessage({type: 'sync_unconfirmed_transactions'});}}>Sync unconfirmed transactions</Button>
+                    <Button style={{wordWrap: 'none'}} fullWidth={true} primary={true} onClick={()=>{sendMessage({type: 'sync_unconfirmed_transactions'});}}>Sync Tx pool</Button>
                 </Col>
                 <Col xs={3}>
                     <Button fullWidth={true} primary={true} onClick={()=>{sendMessage({type: 'UTxO'});}}>Sync UTxO</Button>
