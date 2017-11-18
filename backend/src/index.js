@@ -26,7 +26,7 @@ wss.on('connection', (ws) => {
                 break;
             case 'start_mining':
                 console.log('starting mining');
-                startMining(5);
+                startMining(2);
                 break;
             case 'sync_blockchain':
                 console.log('fetching blockchain');

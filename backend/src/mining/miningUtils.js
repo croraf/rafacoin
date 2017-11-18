@@ -3,7 +3,7 @@ import {blockchain, blockchainTipHash, blockchainHeight} from '../blockchain';
 import {makeHash} from '../hashing';
 import {selectTransactionsToMine, removeTransactionsFromPool} from '../transactions/selectTransactions';
 
-import {addTransactionsToUTxO} from '../transactions/unspentTransactionOutputs';
+import {addTransactionsToUTxO, removeOldUTxO} from '../transactions/unspentTransactionOutputs';
 
 const verifyMinedTarget = (nonce, target) => {
     if (nonce <= target) {
@@ -18,7 +18,7 @@ const generateCoinbase = () => {
     const coinbaseTransaction = {
         transaction: {
             inputs: [
-                {address: blockchainHeight+1, outputIndex: -1}
+                {address: 'coinbase', outputIndex: blockchainHeight+1}
             ],
             outputs: [
                 {address: 'rafa', amount: 25}
@@ -73,6 +73,7 @@ const mineBlock = () => {
     if (mined) {
 
         removeTransactionsFromPool(selectedTransactions);
+        removeOldUTxO(selectedTransactions);
         addTransactionsToUTxO(transactions, nextBlockHash);
         return nextBlock;
     } else {
