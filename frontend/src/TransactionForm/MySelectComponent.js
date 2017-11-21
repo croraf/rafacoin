@@ -6,6 +6,8 @@ import { Grid, Row, Col } from 'react-flexbox-grid';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 
+import {change} from 'redux-form';
+
 class MySelectComponent extends React.Component {
 
     render () {
@@ -14,7 +16,13 @@ class MySelectComponent extends React.Component {
         return (
             <SelectField
                 {...this.props.input}
-                onChange={(event, index, value)=> {this.props.input.onChange(value);}}
+                onChange={
+                    (event, index, value) => {
+                        console.log('select change:', event, index, value);
+                        this.props.dispatch && this.props.dispatch(change('transaction', `inputs[${this.props.index}].outputIndex`, ''));
+                        this.props.input.onChange(value);
+                    }
+                }
                 maxHeight={200}
                 
                 floatingLabelFixed={true}

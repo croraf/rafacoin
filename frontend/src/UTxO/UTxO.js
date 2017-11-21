@@ -18,7 +18,10 @@ class UTxO extends React.Component {
                           location block hash: {UTxOutput[1].blockHash}
                       </div>
                       <div>
-                          output indexes: 
+                        transaction data: TO ADD!!!
+                      </div>
+                      <div>
+                          output indices:  
                           {
                               UTxOutput[1].unspentOutputs.map(
                                 outputIndex => <span key={outputIndex} style={{marginRight: '5px'}}>{outputIndex}</span>

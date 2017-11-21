@@ -11,13 +11,12 @@ const createTransaction = (data) => {
 
     console.log('transaction data:', data);
     let transactionData = {
-        inputs: [
-            {txHash: data.inputs[0].txHash, outputIndex: data.inputs[0].outputIndex}
-        ],
-        outputs: [
-            {address: data.outputs[0].address, amount: data.outputs[0].amount},
-            {address: data.outputs[0].address, amount: data.outputs[0].address},
-        ],
+        inputs: data.inputs.map(input => {
+            return {txHash: input.txHash, outputIndex: input.outputIndex}
+        }),
+        outputs: data.outputs.map(output => {
+            return {address: output.address, amount: output.amount}
+        }),
         fee: data.fee
     };
 

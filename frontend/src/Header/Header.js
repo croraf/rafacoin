@@ -6,10 +6,10 @@ import {ConnectInfoContainer} from './ConnectInfoContainer';
 
 const Header = () => {
     return (
-        <Grid>
+        <Grid style={{backgroundColor: 'lightgray', margin: '0px', marginBottom: '20px', width: '100%'}}>
             <Row>
-                <Col xs={9}>
-                    <h1 style={{textAlign: 'center'}}>Rafacoin manager: Welcome!</h1>
+                <Col xs={6} xsOffset={3}>
+                    <h1 style={{textAlign: 'center'}}>Rafacoin manager</h1>
                 </Col>
                 <Col xs={3} style={{margin: 'auto'}}>
                     <ConnectInfoContainer />

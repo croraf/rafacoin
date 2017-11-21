@@ -8,7 +8,7 @@ import {websockets} from './websockets';
 import {blockchain, blockchainTipHash} from './blockchain';
 import {createTransaction} from './transactions/createTransaction';
 import {getTransactionsSortedByFee} from './transactions/transactions';
-import {unspentTxOutputs} from './transactions/unspentTransactionOutputs';
+import {unspentTx} from './transactions/unspentTransactionOutputs';
 
 wss.on('connection', (ws) => {
 
@@ -43,8 +43,8 @@ wss.on('connection', (ws) => {
                 ws.send(JSON.stringify({type: 'unconfirmed transactions', data: getTransactionsSortedByFee()}));
                 break;
             case 'UTxO':
-                console.log([...unspentTxOutputs.entries()]);
-                ws.send(JSON.stringify({type: 'UTxO', data: [...unspentTxOutputs.entries()]}));
+                console.log([...unspentTx.entries()]);
+                ws.send(JSON.stringify({type: 'UTxO', data: [...unspentTx.entries()]}));
                 break;
         }
 

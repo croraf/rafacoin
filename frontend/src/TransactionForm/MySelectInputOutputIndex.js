@@ -4,6 +4,7 @@ import {MySelectComponent} from './MySelectComponent';
 
 const mapDispatchToProps = () => ({});
 
+
 const mapStateToProps = (state, props) => {
 
     console.log('transaction form:', state.form.transaction.values);

@@ -1,11 +1,12 @@
 
-const unspentTxOutputs = new Map();
+const unspentTx = new Map();
 
 const addTransactionsToUTxO = (transactions, blockHash) => {
 
     transactions.forEach(transaction => {
         const UTxData = {
-            blockHash: blockHash, 
+            blockHash: blockHash,
+            transactionData: transaction[1].transaction, 
             unspentOutputs: []
         };
 
@@ -13,10 +14,10 @@ const addTransactionsToUTxO = (transactions, blockHash) => {
             UTxData.unspentOutputs.push(index);
         });
 
-        unspentTxOutputs.set(transaction[0], UTxData);
+        unspentTx.set(transaction[0], UTxData);
     });
 
-    console.log('entries:', [...unspentTxOutputs.entries()]);
+    console.log('entries:', [...unspentTx.entries()]);
 };
 
 const removeOldUTxO = (minedTransactions) => {
@@ -25,16 +26,16 @@ const removeOldUTxO = (minedTransactions) => {
 
         transaction[1].transaction.inputs.forEach(input => {
             console.log('mined transaction input:', input);   
-            const unspentTransaction = unspentTxOutputs.get(input.txHash);
+            const unspentTransaction = unspentTx.get(input.txHash);
             unspentTransaction.unspentOutputs = unspentTransaction.unspentOutputs.filter(
                 output => output !== input.outputIndex
             );
 
-            if (unspentTransaction.unspentOutputs.length === 0) {unspentTxOutputs.delete(input.txHash);}
-            else {unspentTxOutputs.set(input.address, unspentTransaction);}
+            if (unspentTransaction.unspentOutputs.length === 0) {unspentTx.delete(input.txHash);}
+            else {unspentTx.set(input.txHash, unspentTransaction);}
         });   
     });
 };
 
-export {unspentTxOutputs, addTransactionsToUTxO, removeOldUTxO};
+export {unspentTx, addTransactionsToUTxO, removeOldUTxO};
 

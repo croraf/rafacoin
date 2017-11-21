@@ -28,12 +28,14 @@ class TransactionFormModal extends React.Component {
         return (
             <Row style={{marginBottom: '10px'}}>
                 <Dialog
-                        title='Dialog Header'
+                        title='Make transaction'
                         modal={false}
                         open={this.state.open}
                         onRequestClose={this.handleClose}
                         actions={<RemoteSubmitButton handleClose={this.handleClose}/>}
-                        contentStyle={{width: '95%', maxWidth: '1400px'}}>
+                        contentStyle={{width: '95%', maxWidth: '1400px'}}
+                        bodyStyle={{maxHeight: '250px', overflowY: 'auto'}}
+                        style={{marginTop: '-100px'}}>
                         
                         <TransactionForm/>
                         

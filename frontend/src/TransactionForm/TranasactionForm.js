@@ -7,8 +7,13 @@ import {MyTextInput} from './MyTextInput';
 
 import {MySelectInputTx} from './MySelectInputTx';
 import {MySelectInputOutputIndex} from './MySelectInputOutputIndex';
+import {SelectedOutputInfo} from './SelectedOutputInfo';
 
 import Button from 'material-ui/RaisedButton';
+import IconButton from 'material-ui/IconButton';
+import DeleteForever from 'material-ui/svg-icons/action/delete-forever';
+
+import FontIcon from 'material-ui/FontIcon';
 
 const renderOutputMembers = ({fields}) => {
 
@@ -25,7 +30,9 @@ const renderOutputMembers = ({fields}) => {
                             <Field name={`${output}.amount`} component={MyTextInput} label={`Output ${index} amount`}/>
                         </Col>
                         <Col xs={1} style={{margin: 'auto'}}>
-                            <Button onClick={() => fields.remove(index)}>delete</Button>
+                            <IconButton onClick={() => fields.remove(index)}>
+                                <DeleteForever />
+                            </IconButton>
                         </Col>
                     </Row>
                 )
@@ -45,17 +52,22 @@ const renderInputMembers = ({fields}) => {
             {fields.map((input, index) => {
 
                 return (
-                    <Row key={index}>
-                        <Col xs={8}>
-                            <Field name={`${input}.txHash`} component={MySelectInputTx} label={`Input ${index} Tx address`}/>
-                        </Col>
-                        <Col xs={3}>
-                            <Field name={`${input}.outputIndex`} component={MySelectInputOutputIndex} index={index} label={`Input ${index} Tx output index`}/>
-                        </Col>
-                        <Col xs={1} style={{margin: 'auto'}}>
-                            <Button onClick={() => fields.remove(index)}>delete</Button>
-                        </Col>
-                    </Row>
+                    <div key={index}>
+                        <Row style={{marginBottom: '15px'}}>
+                            <Col xs={8}>
+                                <Field name={`${input}.txHash`} component={MySelectInputTx} index={index} label={`Input ${index} Tx hash`}/>
+                            </Col>
+                            <Col xs={3}>
+                                <Field name={`${input}.outputIndex`} component={MySelectInputOutputIndex} index={index} label={`Input ${index} Tx output index`}/>
+                            </Col>
+                            <Col xs={1} style={{margin: 'auto'}}>
+                                <IconButton onClick={() => fields.remove(index)}>
+                                    <DeleteForever />
+                                </IconButton>
+                            </Col>
+                        </Row>
+                        <SelectedOutputInfo index={index}/>
+                    </div>
                 )
             })}
             
@@ -78,8 +90,9 @@ class TransactionFormComponent extends React.Component {
 
                 <FieldArray name="outputs" component={renderOutputMembers} />
                 
-                <Field name='fee' component={MyTextInput} label="Fee"/>
-                
+                <Col xs={4} xsOffset={4}>
+                    <Field name='fee' component={MyTextInput} label="Fee"/>
+                </Col>
             </form>
         )
     }
