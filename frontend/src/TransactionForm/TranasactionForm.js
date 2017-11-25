@@ -9,11 +9,10 @@ import {MySelectInputTx} from './MySelectInputTx';
 import {MySelectInputOutputIndex} from './MySelectInputOutputIndex';
 import {SelectedOutputInfo} from './SelectedOutputInfo';
 
-import Button from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
-import DeleteForever from 'material-ui/svg-icons/action/delete-forever';
+import DeleteForever from 'material-ui-icons/DeleteForever';
 
-import FontIcon from 'material-ui/FontIcon';
 
 const renderOutputMembers = ({fields}) => {
 
@@ -39,7 +38,9 @@ const renderOutputMembers = ({fields}) => {
             })}
             
             <Row>
-                <Button style={{margin: 'auto'}} onClick={()=>{fields.push({})}}>+ Add output</Button>
+                <Button raised={true} style={{margin: 'auto', marginTop: '10px'}} onClick={()=>{fields.push({})}}>
+                    + Add output
+                </Button>
             </Row>
         </div>
     );
@@ -53,7 +54,7 @@ const renderInputMembers = ({fields}) => {
 
                 return (
                     <div key={index}>
-                        <Row style={{marginBottom: '15px'}}>
+                        <Row style={{marginTop: '10px', marginBottom: '5px'}}>
                             <Col xs={8}>
                                 <Field name={`${input}.txHash`} component={MySelectInputTx} index={index} label={`Input ${index} Tx hash`}/>
                             </Col>
@@ -72,7 +73,9 @@ const renderInputMembers = ({fields}) => {
             })}
             
             <Row>
-                <Button style={{margin: 'auto'}} onClick={()=>{fields.push({})}}>+ Add input</Button>
+                <Button raised={true} style={{margin: 'auto'}} onClick={()=>{fields.push({})}}>
+                    + Add input
+                </Button>
             </Row>
         </div>
     );

@@ -11,8 +11,7 @@ class MyTextInput extends React.Component {
         return (
             <TextField 
                 {...this.props.input}
-                floatingLabelFixed={true}
-                floatingLabelText={this.props.label} 
+                label={this.props.label} 
                 style={{width: '95%'}}/>
         );
     }

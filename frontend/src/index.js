@@ -4,13 +4,16 @@ import React from 'react';
 import {Main} from './Main';
 import { Provider } from 'react-redux';
 
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import {MuiThemeProvider, createMuiTheme} from 'material-ui/styles';
 
 import {store} from './redux/store';
 
+
+const theme = createMuiTheme();
+
 ReactDOM.render(
   <Provider store={store}>
-      <MuiThemeProvider>
+      <MuiThemeProvider theme={theme}>
           <Main />
       </MuiThemeProvider>
   </Provider>,

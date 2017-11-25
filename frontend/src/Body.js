@@ -4,34 +4,34 @@ import {sendMessage, closeWebsocket} from './webSocket';
 
 import {BlockchainContainer} from './Blockchain/BlockchainContainer';
 import {TransactionsContainer} from './TransactionsPool/TransactionsContainer';
-import {TransactionFormModal} from './TransactionForm/TransactionFormModal';
+import TransactionFormDialog from './TransactionForm/TransactionFormDialog';
 import {UTxOContainer} from './UTxO/UTxOContainer';
 
 import { Grid, Row, Col } from 'react-flexbox-grid';
-import Button from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 
 
 const Body = () => {
 
     return (
-        <Grid>
+        <Grid style={{width: '95%'}}>
 
             <Row style={{marginBottom: '10px'}}>
                 <Col xs={3}>
-                    <Button fullWidth={true} primary={true} onClick={()=>{sendMessage({type: 'start_mining'});}}>Start mining</Button>
+                    <Button raised={true} style={{width: '100%'}} color='primary' onClick={()=>{sendMessage({type: 'start_mining'});}}>Start mining</Button>
                 </Col>
                 <Col xs={3}>
-                    <Button fullWidth={true} primary={true} onClick={()=>{sendMessage({type: 'sync_blockchain'});}}>Sync blockchain</Button>
+                    <Button raised={true} style={{width: '100%'}} color='primary' onClick={()=>{sendMessage({type: 'sync_blockchain'});}}>Sync blockchain</Button>
                 </Col>
                 <Col xs={3}>
-                    <Button style={{wordWrap: 'none'}} fullWidth={true} primary={true} onClick={()=>{sendMessage({type: 'sync_unconfirmed_transactions'});}}>Sync Tx pool</Button>
+                    <Button raised={true} style={{width: '100%'}} color='primary' onClick={()=>{sendMessage({type: 'sync_unconfirmed_transactions'});}}>Sync Tx pool</Button>
                 </Col>
                 <Col xs={3}>
-                    <Button fullWidth={true} primary={true} onClick={()=>{sendMessage({type: 'UTxO'});}}>Sync UTxO</Button>
+                    <Button raised={true} style={{width: '100%'}} color='primary' onClick={()=>{sendMessage({type: 'UTxO'});}}>Sync UTxO</Button>
                 </Col>
             </Row>
                 
-            <TransactionFormModal />
+            <TransactionFormDialog />
 
             <Row>
                 <Col xs={6}>

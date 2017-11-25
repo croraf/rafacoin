@@ -3,8 +3,10 @@ import React from 'react';
 
 import { Grid, Row, Col } from 'react-flexbox-grid';
 
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
+import Select from 'material-ui/Select';
+import { InputLabel } from 'material-ui/Input';
+import { MenuItem } from 'material-ui/Menu';
+import { FormControl } from 'material-ui/Form';
 
 import {change} from 'redux-form';
 
@@ -14,23 +16,24 @@ class MySelectComponent extends React.Component {
         console.log('output index select items:', this.props.selectItems);
 
         return (
-            <SelectField
-                {...this.props.input}
-                onChange={
-                    (event, index, value) => {
-                        console.log('select change:', event, index, value);
-                        this.props.dispatch && this.props.dispatch(change('transaction', `inputs[${this.props.index}].outputIndex`, ''));
-                        this.props.input.onChange(value);
+            <FormControl style={{width: '95%'}}>
+                <InputLabel>{this.props.label}</InputLabel>
+                <Select
+                    {...this.props.input}
+                    onChange={
+                        (event) => {
+                            console.log('select change:', event.target.value);
+                            this.props.dispatch && this.props.dispatch(change('transaction', `inputs[${this.props.index}].outputIndex`, ''));
+                            this.props.input.onChange(event.target.value);
+                        }
                     }
-                }
-                maxHeight={200}
-                
-                floatingLabelFixed={true}
-                floatingLabelText={this.props.label}
-                style={{width: '95%'}}
-            >
-                {this.props.selectItems.map((item) => <MenuItem value={item} key={item} primaryText={item.toString()} />)}
-            </SelectField>
+                >
+                    {this.props.selectItems.map((item) => (
+
+                        <MenuItem value={item} key={item}>{item.toString()}</MenuItem>
+                    ))}
+                </Select>
+            </FormControl>
         );
     }
 }
