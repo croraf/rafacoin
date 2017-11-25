@@ -13,14 +13,14 @@ let blockchainHeight = 0;
 
 const validateBlock = (block, hash) => {
     if (block.previousHash !== blockchainTipHash) {
-        console.log('Doesn\'t reference the blockchainTipHash');
-        return false;
+        throw({reason: 'Doesn\'t reference the blockchainTipHash'});
     } else {
+        log1('Comparing hash and target:', hash + '\n ' + block.target);
+
         if (hash <= block.target) {
             return true;
         } else {
-            console.log('nonce is not below target!');
-            return false;
+            throw({reason: 'Hash is not below target!'});
         }
     }
 };
@@ -28,10 +28,7 @@ const validateBlock = (block, hash) => {
 import {makeHash} from './hashing';
 import {log1} from './utilities';
 
-const addToBlockchain = (block) => {
-
-    
-    const hash = makeHash(JSON.stringify(block));
+const addToBlockchain = (block, hash) => {
 
     if (validateBlock(block, hash)) {
         blockchain[hash] = block;

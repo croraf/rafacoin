@@ -27,6 +27,7 @@
     "redux-form": "^6.6.2",
     "redux-logger": "^3.0.1",
     "redux-thunk": "^2.2.0",
+    "webworker-threads": "^0.7.13",
     "ws": "^3.3.1"
   },
   "devDependencies": {

@@ -3,7 +3,7 @@ const WebSocket = require('ws');
 
 const wss = new WebSocket.Server({ port: 9000 });
 
-import {startMining} from './mining/mining';
+import {constructAndMineBlock} from './mining/miningWrapper';
 import {websockets} from './websockets';
 import {blockchain, blockchainTipHash} from './blockchain';
 import {createTransaction} from './transactions/createTransaction';
@@ -26,7 +26,8 @@ wss.on('connection', (ws) => {
                 break;
             case 'start_mining':
                 console.log('starting mining');
-                startMining(2);
+
+                constructAndMineBlock();
                 break;
             case 'sync_blockchain':
                 console.log('fetching blockchain');
