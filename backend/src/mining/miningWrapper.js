@@ -86,7 +86,7 @@ const constructAndMineBlock = () => {
     log1('Creating separate mining process:', '');
 
     
-    const child = fork('src/mining/miningSubprocess.js');
+    const child = fork(process.env.NODE_ENV ? 'src/mining/miningSubprocess.js' : 'dist/mining/miningSubprocess.js');
 
 
     child.on('message', (msg) => {

@@ -10,6 +10,8 @@ import {createTransaction} from './transactions/createTransaction';
 import {getTransactionsSortedByFee} from './transactions/transactions';
 import {unspentTx} from './transactions/unspentTransactionOutputs';
 
+console.log('BACKEND STARTED');
+
 wss.on('connection', (ws) => {
 
     websockets.push(ws);
