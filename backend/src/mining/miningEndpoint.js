@@ -12,7 +12,7 @@ const miningEndpoint = () => {
 
         mining = true;
         log1('Starting mining', '');
-        websockets[0].send(JSON.stringify({type: 'miningInfo', data: 'Mining started!!!'}));
+        websockets[0].send(JSON.stringify({type: 'miningInfo', data: 'miningStarted'}));
 
         constructAndMineBlock();
     }
@@ -22,7 +22,7 @@ const setMiningFinished = () => {
     
     mining = false;
 
-    websockets[0].send(JSON.stringify({type: 'miningInfo', data: 'Mining finished!!!'}));
+    websockets[0].send(JSON.stringify({type: 'miningInfo', data: 'miningFinished'}));
     log1('Mining finished', '');
 }
 

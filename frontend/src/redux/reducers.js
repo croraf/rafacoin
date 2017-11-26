@@ -35,6 +35,18 @@ const UTxOReducer = (state = [], action) => {
     }
 }
 
+const miningReducer = (state=false, action) => {
+    switch (action.type) {
+        case 'miningInfo':
+            if (action.data === 'miningStarted') {return true;}
+            else if (action.data === 'miningFinished') {return false;}
+            else {console.log('wrong message type');}
+            break;
+        default:
+            return state;
+    }
+}
+
 const websocketReducer = (state = 'closed', action) => {
     switch(action.type){
       case 'websocket':
@@ -45,4 +57,4 @@ const websocketReducer = (state = 'closed', action) => {
     }
 }
 
-export {blockchainReducer, transactionsReducer, UTxOReducer, websocketReducer};
+export {blockchainReducer, transactionsReducer, UTxOReducer, miningReducer, websocketReducer};

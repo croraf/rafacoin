@@ -10,6 +10,7 @@ import {UTxOContainer} from './UTxO/UTxOContainer';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import Button from 'material-ui/Button';
 
+import {MiningButton} from './MiningButton';
 
 const Body = () => {
 
@@ -18,16 +19,22 @@ const Body = () => {
 
             <Row style={{marginBottom: '10px'}}>
                 <Col xs={3}>
-                    <Button raised={true} style={{width: '100%'}} color='primary' onClick={()=>{sendMessage({type: 'start_mining'});}}>Start mining</Button>
+                    <MiningButton />
                 </Col>
                 <Col xs={3}>
-                    <Button raised={true} style={{width: '100%'}} color='primary' onClick={()=>{sendMessage({type: 'sync_blockchain'});}}>Sync blockchain</Button>
+                    <Button raised={true} style={{width: '100%'}} color='primary' onClick={()=>{sendMessage({type: 'sync_blockchain'});}}>
+                        Sync blockchain
+                    </Button>
                 </Col>
                 <Col xs={3}>
-                    <Button raised={true} style={{width: '100%'}} color='primary' onClick={()=>{sendMessage({type: 'sync_unconfirmed_transactions'});}}>Sync Tx pool</Button>
+                    <Button raised={true} style={{width: '100%'}} color='primary' onClick={()=>{sendMessage({type: 'sync_unconfirmed_transactions'});}}>
+                        Sync Tx pool
+                    </Button>
                 </Col>
                 <Col xs={3}>
-                    <Button raised={true} style={{width: '100%'}} color='primary' onClick={()=>{sendMessage({type: 'UTxO'});}}>Sync UTxO</Button>
+                    <Button raised={true} style={{width: '100%'}} color='primary' onClick={()=>{sendMessage({type: 'UTxO'});}}>
+                        Sync UTxO
+                    </Button>
                 </Col>
             </Row>
                 
