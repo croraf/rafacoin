@@ -34,6 +34,10 @@ const setupWebSocket = () => {
             case 'UTxO':
                 store.dispatch({type: 'UTxO', data: parsedMessage.data});
                 break;
+            case 'miningInfo':
+                store.dispatch({type: 'miningInfo', data: parsedMessage.data});
+                console.log(parsedMessage);
+                break;
             default:
               console.log(parsedMessage);
               break;

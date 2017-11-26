@@ -10,6 +10,7 @@ import {addTransactionsToUTxO, removeOldUTxO} from '../transactions/unspentTrans
 import {selectTransactionsToMine} from '../transactions/selectTransactions';
 import {Worker} from 'webworker-threads';
 
+import {setMiningFinished} from './miningEndpoint';
 
 import {fork} from 'child_process';
 
@@ -103,6 +104,8 @@ const constructAndMineBlock = () => {
         
 
         constructAndSendMinedBlock(calculatedNonce, nextBlockHeaderTemplate, transactions);
+
+        setMiningFinished();
     });
       
     child.send(nextBlockHeaderTemplate);
@@ -115,34 +118,6 @@ const constructAndMineBlock = () => {
 
 
 export {constructAndMineBlock};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-const miningLoop = (index) => {
-
-    log1('Next mining cycle:' + index, '');
-
-    console.log('tip:', blockchainTipHash);
-    const minedBlock = mineBlock();
-
-
-    if (index === 0) {
-        log1('blockchain:', blockchain);
-        websockets[0].send(JSON.stringify({note: 'Mining finished!!!'}));
-    }
-    else {setTimeout(() => {miningLoop(index-1);}, 10);}
-};
 
 
 
