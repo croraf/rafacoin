@@ -4,5 +4,3 @@ backend/node_modules
 frontend/node_modules
 
 backend/dist
-
-backend/dist/bitcoin-core.js
