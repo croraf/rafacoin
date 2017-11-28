@@ -49,12 +49,38 @@ const miningReducer = (state=false, action) => {
 
 const websocketReducer = (state = 'closed', action) => {
     switch(action.type){
-      case 'websocket':
-        console.log(action.data);
-        return action.data;
-      default:
-        return state;
+          case 'websocket':
+               console.log(action.data);
+               return action.data;
+          default:
+               return state;
     }
 }
 
-export {blockchainReducer, transactionsReducer, UTxOReducer, miningReducer, websocketReducer};
+/* const accountInfoReducer = (state={}, action) => {
+
+    switch(action.type){
+        case 'accountInfo':
+            console.log(action.data);
+            return action.data;
+        default:
+            return state;
+    }
+
+} */
+
+const addressInfoReducer = (state=[], action) => {
+
+    switch(action.type){
+        case 'addressInfo':
+            console.log(action.data);
+            return action.data;
+        case 'newAddress':
+            return [...state, action.data];
+        default:
+            return state;
+    }
+
+}
+
+export {blockchainReducer, transactionsReducer, UTxOReducer, miningReducer, websocketReducer, addressInfoReducer};

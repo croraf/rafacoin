@@ -22,6 +22,9 @@ class SelectedOutputInfoComponent extends React.Component {
                         UTxFound && (outputIndex !== undefined) && UTxFound[1].transactionData.outputs[0].amount
                     }
                 </Row>
+                <Row>
+                    Optional: error, you do not controll this address :)
+                </Row>
             </div>
         );
     }

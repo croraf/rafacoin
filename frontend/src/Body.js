@@ -12,10 +12,16 @@ import Button from 'material-ui/Button';
 
 import {MiningButton} from './MiningButton';
 
+import {AccountInfo} from './AccountInfo/AccountInfo';
+
 const Body = () => {
 
     return (
         <Grid style={{width: '95%'}}>
+
+            <Row style={{marginBottom: '20px', marginTop: '10px'}}>
+                <AccountInfo />
+            </Row>
 
             <Row style={{marginBottom: '10px'}}>
                 <Col xs={3}>
