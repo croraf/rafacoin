@@ -10,36 +10,47 @@ import {createTransaction} from './transactions/createTransaction';
 import {getTransactionsSortedByFee} from './transactions/transactions';
 import {unspentTx} from './transactions/unspentTransactionOutputs';
 
+import {getBlockFromDB} from './data/blockchainDAO';
+import {getMetadata} from './data/metaDAO';
+
 console.log('BACKEND STARTED');
 
 wss.on('connection', (ws) => {
 
     websockets.push(ws);
 
-    ws.on('message', message => {
+    ws.on('message', async message => {
         const parsedMessage = JSON.parse(message);
 
         console.log('received:', parsedMessage);
         
         switch (parsedMessage.type) {
+
             case 'create_transaction':
                 console.log('making transaction');
                 createTransaction(parsedMessage.data);
                 break;
-            case 'start_mining':
 
+            case 'start_mining':
                 miningEndpoint();
                 break;
+
             case 'sync_blockchain':
                 console.log('fetching blockchain');
                 const blockchainArray = [];
-                let blockchainTipHashTemp = blockchainTipHash;
+                const blockchainMetadata = await getMetadata();
+                console.log('metadata:', metadata);
+
+                let blockchainTipHashTemp = blockchainMetadata.blockchainTipHash;
                 while (blockchainTipHashTemp) {
-                    blockchainArray.push([blockchainTipHashTemp, blockchain[blockchainTipHashTemp]]);
-                    blockchainTipHashTemp = blockchain[blockchainTipHashTemp].previousHash;
+
+                    const currentBlock = await getBlockFromDB(blockchainTipHashTemp);
+                    blockchainArray.push([blockchainTipHashTemp, currentBlock.block]);
+                    blockchainTipHashTemp = currentBlock.block.previousHash;
                 }
                 ws.send(JSON.stringify({type: 'blockchain', data: blockchainArray}));
                 break;
+
             case 'sync_unconfirmed_transactions':
                 console.log('fetching unconfirmed transactions');
                 ws.send(JSON.stringify({type: 'unconfirmed transactions', data: getTransactionsSortedByFee()}));

@@ -14,6 +14,8 @@ import {setMiningFinished} from './miningEndpoint';
 
 import {fork} from 'child_process';
 
+import {insertBlockInDB} from '../data/blockchainDAO';
+
 const generateCoinbase = () => {
     
     const coinbaseTransaction = {

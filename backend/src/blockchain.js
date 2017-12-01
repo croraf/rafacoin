@@ -7,6 +7,8 @@ const blockchain = {
     }
 };
 
+import {insertBlockInDB} from './data/blockchainDAO';
+
 let blockchainTipHash = 'c00ee95ff114855f2cae409ebb44c8f812b2505e144ccb076feddfdcc08053e3';
 
 let blockchainHeight = 0;
@@ -31,6 +33,9 @@ import {log1} from './utilities';
 const addToBlockchain = (block, hash) => {
 
     if (validateBlock(block, hash)) {
+
+        insertBlockInDB(hash, block);
+        
         blockchain[hash] = block;
         blockchainTipHash = hash;
         blockchainHeight++;
