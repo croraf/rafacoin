@@ -8,7 +8,7 @@ import {websockets} from '../websockets';
 import {removeTransactionsFromPool} from '../transactions/selectTransactions';
 import {addTransactionsToUTxO, removeOldUTxO} from '../transactions/unspentTransactionOutputs';
 import {selectTransactionsToMine} from '../transactions/selectTransactions';
-import {Worker} from 'webworker-threads';
+
 
 import {setMiningFinished} from './miningEndpoint';
 
