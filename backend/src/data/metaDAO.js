@@ -1,22 +1,53 @@
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/rafacoinDB";
 
-const getMetadata = async (hash) => {
+const getMetadata = (hash) => {
     
     return new Promise((resolve, reject) => {
 
         MongoClient.connect(url, (err, db) => {
-            if (err) throw err;
+            if (err) reject(err);
+            else {
+                db.collection("meta").findOne({type: 'blockchainMeta'}, (err, res) => {
+                    if (err) reject(err);
+                    else {
+                        db.close();
+                        console.log('Metadata found: ', res);
+                        resolve(res);
+                    }
+                });
+            }
+        }); 
+    });
+}
+
+const updateBlockchainMetadata = (hash) => {
     
-            db.collection("meta").findOne({type: 'blockchainMeta'}, (err, res) => {
-                if (err) throw err;
-                db.close();
-                console.log('Metadata found: ', res);
-                resolve(res);
-            });
+    return new Promise((resolve, reject) => {
+
+        MongoClient.connect(url, (err, db) => {
+            if (err) reject(err);
+            else {
+                db.collection("meta").update(
+                    {type: 'blockchainMeta'},
+                    {
+                        type: 'blockchainMeta',
+                        blockchainTipHash: hash,
+                        blockchainHeight: 0
+                    }, 
+                    (err, res) => {
+                        if (err) reject(err);
+                        else {
+                            db.close();
+                            console.log('Metadata updated: ', res.result);
+                            resolve(res.result);
+                        }
+                    }
+                );
+            }
         }); 
     });
     
 }
 
-export {getMetadata};
+export {getMetadata, updateBlockchainMetadata};

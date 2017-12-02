@@ -8,13 +8,13 @@ const insertBlockInDB = (hash, block) => {
         const insertData = { hash: hash, block: block };
         db.collection("blockchain").insertOne(insertData, (err, res) => {
           if (err) throw err;
-          console.log("1 document inserted");
+          console.log("Block added to blockchain database.");
           db.close();
         });
       }); 
 }
 
-const getBlockFromDB = async (hash) => {
+const getBlockFromDB = (hash) => {
 
     return new Promise((resolve, reject) => {
 

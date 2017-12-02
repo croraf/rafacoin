@@ -15,8 +15,7 @@ const setupWebSocket = () => {
               store.dispatch({type: 'newBlock', block: parsedMessage.data});
               break;
             case 'blockchain':
-
-              console.log(parsedMessage.data);
+            
               store.dispatch({type: 'blockchain', blockchain: parsedMessage.data});
               break;
             

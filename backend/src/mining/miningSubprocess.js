@@ -32,7 +32,7 @@ const findNonce = (blockHeaderTemplate) => {
 
     if (mined) {
 
-        console.log('Found header hash:', blockHeaderHash);
+        console.log('Found correct header hash:', blockHeaderHash);
         
         return nonce;
 
@@ -42,21 +42,13 @@ const findNonce = (blockHeaderTemplate) => {
 };
 
 
-
-const mine = (blockHeaderTemplate) => {
-  
-  console.log('In mining subprocess!!!');
-
-  console.log('Recieved header template: ', blockHeaderTemplate);
-
-  const foundNonce = findNonce(blockHeaderTemplate);
-  
-  setTimeout(() => {process.send({type: 'calculatedNonce', data: foundNonce});}, 3000);
-};
-
-
 process.on('message', (blockHeaderTemplate) => {
 
-  mine(blockHeaderTemplate);
+    console.log('In mining subprocess!!!');
   
+    console.log('Recieved header template: ', blockHeaderTemplate);
+
+    const foundNonce = findNonce(blockHeaderTemplate);
+
+    process.send({type: 'calculatedNonce', data: foundNonce});
 });

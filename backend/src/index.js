@@ -13,11 +13,15 @@ import {unspentTx} from './transactions/unspentTransactionOutputs';
 import {getBlockFromDB} from './data/blockchainDAO';
 import {getMetadata} from './data/metaDAO';
 
+import {sendInitialState} from './sendInitialState';
+
 console.log('BACKEND STARTED');
 
 wss.on('connection', (ws) => {
 
     websockets.push(ws);
+
+    sendInitialState(ws);
 
     ws.on('message', async message => {
         const parsedMessage = JSON.parse(message);

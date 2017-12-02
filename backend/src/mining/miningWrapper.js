@@ -39,14 +39,14 @@ const generateCoinbase = () => {
 };
 
 
-const constructAndSendMinedBlock = (calculatedNonce, nextBlockHeaderTemplate, transactions) => {
+const constructStoreAndSendMinedBlock = (calculatedNonce, nextBlockHeaderTemplate, transactions) => {
 
     
     const minedBlockHeader = Object.assign({}, nextBlockHeaderTemplate, {nonce: calculatedNonce});
 
     const minedBlock = Object.assign({}, minedBlockHeader, {transactions: transactions});
 
-    log1('Entire mined block:', minedBlock);
+    log1('New block constructed:', minedBlock);
 
     const minedBlockHeaderHash = makeHash(JSON.stringify(minedBlockHeader));
     
@@ -65,36 +65,16 @@ const constructAndSendMinedBlock = (calculatedNonce, nextBlockHeaderTemplate, tr
     }
 }
 
-const constructAndMineBlock = () => {
-
-    console.log('tip:', blockchainTipHash);
-
-    const coinbase = generateCoinbase();
-    
-    const selectedTransactions = selectTransactionsToMine();
-
-    const transactions = [coinbase].concat(selectedTransactions);
-
-    log1('Transactions:', transactions);
-
-
-    const nextBlockHeaderTemplate = {
-        previousHash: blockchainTipHash,
-        merkleRoot: makeHash(JSON.stringify(transactions)),
-        target: blockchain[blockchainTipHash].target,
-        nonce: 0
-    };
+const startMining = () => {
 
     log1('Creating separate mining process:', '');
-
     
-    const child = fork(process.env.NODE_ENV ? 'src/mining/miningSubprocess.js' : 'dist/mining/miningSubprocess.js');
+    const miningProcess = fork(process.env.NODE_ENV ? 'src/mining/miningSubprocess.js' : 'dist/mining/miningSubprocess.js');
 
 
-    child.on('message', (msg) => {
+    miningProcess.on('message', (msg) => {
 
-
-        console.log('Message from child: ', msg);
+        console.log('Message from mining subprocess received: ', msg);
 
         const calculatedNonce = msg.data;
 
@@ -104,22 +84,43 @@ const constructAndMineBlock = () => {
         removeTransactionsFromPool(selectedTransactions);
         removeOldUTxO(selectedTransactions);
         
-
-        constructAndSendMinedBlock(calculatedNonce, nextBlockHeaderTemplate, transactions);
+        constructStoreAndSendMinedBlock(calculatedNonce, nextBlockHeaderTemplate, transactions);
 
         setMiningFinished();
     });
-      
-    child.send(nextBlockHeaderTemplate);
 
-    child.on('exit', function (code, signal) {
-        console.log('child process exited with ' +
+    miningProcess.on('exit', function (code, signal) {
+        console.log('Mining process exited with ' +
                     `code ${code} and signal ${signal}`);
     });
+
+
+
+    log1('Current tip:', blockchainTipHash);
+    
+    const coinbase = generateCoinbase();
+    
+    const selectedTransactions = selectTransactionsToMine();
+
+    const transactions = [coinbase].concat(selectedTransactions);
+
+    log1('Coinbase | selected transactions:', transactions);
+
+    const nextBlockHeaderTemplate = {
+        previousHash: blockchainTipHash,
+        merkleRoot: makeHash(JSON.stringify(transactions)),
+        target: blockchain[blockchainTipHash].target,
+        nonce: 0
+    };
+
+
+    log1('Block header template constructed and sending to mining process:', nextBlockHeaderTemplate);
+
+    miningProcess.send(nextBlockHeaderTemplate);
 };
 
 
-export {constructAndMineBlock};
+export {startMining};
 
 
 

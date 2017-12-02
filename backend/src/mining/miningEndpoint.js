@@ -1,6 +1,6 @@
 
 
-import {constructAndMineBlock} from './miningWrapper';
+import {startMining} from './miningWrapper';
 import { log1 } from '../utilities';
 import { websockets } from '../websockets';
 
@@ -14,7 +14,7 @@ const miningEndpoint = () => {
         log1('Starting mining', '');
         websockets[0].send(JSON.stringify({type: 'miningInfo', data: 'miningStarted'}));
 
-        constructAndMineBlock();
+        startMining();
     }
 }
 

@@ -29,12 +29,15 @@ const validateBlock = (block, hash) => {
 
 import {makeHash} from './hashing';
 import {log1} from './utilities';
+import { updateBlockchainMetadata } from './data/metaDAO';
 
 const addToBlockchain = (block, hash) => {
 
     if (validateBlock(block, hash)) {
 
         insertBlockInDB(hash, block);
+
+        updateBlockchainMetadata(hash);
         
         blockchain[hash] = block;
         blockchainTipHash = hash;
