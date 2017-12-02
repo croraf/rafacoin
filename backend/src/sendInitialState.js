@@ -1,6 +1,8 @@
 import {getMetadata} from './data/metaDAO';
 import {getBlockFromDB} from './data/blockchainDAO';
 
+import {blockchainMetadata} from './blockchain';
+
 const sendInitialState = async (ws) => {
 
     console.log('Sending initial state!');
@@ -8,10 +10,14 @@ const sendInitialState = async (ws) => {
     console.log('Sending initial blockchain state!');
 
     const blockchainArray = [];
-    const blockchainMetadata = await getMetadata();
-    console.log('metadata:', blockchainMetadata);
+    const blockchainMetadataLoaded = await getMetadata();
+    console.log('metadata:', blockchainMetadataLoaded);
 
-    let blockchainTipHashTemp = blockchainMetadata.blockchainTipHash;
+    blockchainMetadata.blockchainHeight = blockchainMetadataLoaded.blockchainHeight;
+    blockchainMetadata.blockchainTipHash = blockchainMetadataLoaded.blockchainTipHash;
+    blockchainMetadata.target = blockchainMetadataLoaded.target;
+
+    let blockchainTipHashTemp = blockchainMetadataLoaded.blockchainTipHash;
     while (blockchainTipHashTemp) {
 
         const currentBlock = await getBlockFromDB(blockchainTipHashTemp);

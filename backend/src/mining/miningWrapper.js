@@ -1,5 +1,5 @@
 
-import {blockchain, blockchainTipHash, addToBlockchain, blockchainHeight} from '../blockchain';
+import {blockchain, addToBlockchain, blockchainMetadata} from '../blockchain';
 import {makeHash} from '../hashing';
 import {log1} from '../utilities';
 
@@ -21,7 +21,7 @@ const generateCoinbase = () => {
     const coinbaseTransaction = {
         transaction: {
             inputs: [
-                {txHash: 'coinbase', outputIndex: blockchainHeight+1}
+                {txHash: 'coinbase', outputIndex: blockchainMetadata.blockchainHeight+1}
             ],
             outputs: [
                 {address: 'rafa', amount: 25}
@@ -96,7 +96,7 @@ const startMining = () => {
 
 
 
-    log1('Current tip:', blockchainTipHash);
+    log1('Current tip:', blockchainMetadata.blockchainTipHash);
     
     const coinbase = generateCoinbase();
     
@@ -107,9 +107,9 @@ const startMining = () => {
     log1('Coinbase | selected transactions:', transactions);
 
     const nextBlockHeaderTemplate = {
-        previousHash: blockchainTipHash,
+        previousHash: blockchainMetadata.blockchainTipHash,
         merkleRoot: makeHash(JSON.stringify(transactions)),
-        target: blockchain[blockchainTipHash].target,
+        target: blockchainMetadata.target,
         nonce: 0
     };
 

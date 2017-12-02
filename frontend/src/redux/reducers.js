@@ -28,7 +28,7 @@ const transactionsReducer = (state = [], action) => {
 const UTxOReducer = (state = [], action) => {
     switch(action.type){
       case 'UTxO':
-        console.log(action.data);
+        console.log('UTxO data:', action.data);
         return action.data;
       default:
         return state;

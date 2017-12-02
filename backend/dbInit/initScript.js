@@ -21,16 +21,12 @@ MongoClient.connect(url, (err, db) => {
         db.collection("blockchain").insertOne(genesisBlock, (err, res) => {
             if (err) throw err;
             console.log("Genesis block inserted!");
+
+            db.close();
         });
-
-        db.close();
     });
-}); 
+});
 
-MongoClient.connect(url, (err, db) => {
-    if (err) throw err;
-    
-}); 
 
 MongoClient.connect(url, (err, db) => {
     if (err) throw err;
@@ -42,13 +38,41 @@ MongoClient.connect(url, (err, db) => {
         const metaDocument = {
             type: 'blockchainMeta',
             blockchainTipHash: 'c00ee95ff114855f2cae409ebb44c8f812b2505e144ccb076feddfdcc08053e3',
-            blockchainHeight: 0
+            blockchainHeight: 0,
+            target: '0000100ff114855f2cae409ebb44c8f812b2505e144ccb076feddfdcc08053e3'
         }
     
         db.collection("meta").insertOne(metaDocument, (err, res) => {
             if (err) throw err;
             console.log("Meta info inserted!");
+            
+            db.close();
         });
+
+
+    });
+}); 
+
+MongoClient.connect(url, (err, db) => {
+    if (err) throw err;
+
+    db.collection("UTxO").remove({}, (err, res) => {
+        if (err) throw err;
+        console.log("UTxO collection cleared!");
+
+        /* const metaDocument = {
+            type: 'blockchainMeta',
+            blockchainTipHash: 'c00ee95ff114855f2cae409ebb44c8f812b2505e144ccb076feddfdcc08053e3',
+            blockchainHeight: 0,
+            target: '0000100ff114855f2cae409ebb44c8f812b2505e144ccb076feddfdcc08053e3'
+        }
+    
+        db.collection("meta").insertOne(metaDocument, (err, res) => {
+            if (err) throw err;
+            console.log("Meta info inserted!");
+            
+            db.close();
+        }); */
 
         db.close();
     });

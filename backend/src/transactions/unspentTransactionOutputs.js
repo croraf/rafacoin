@@ -1,23 +1,22 @@
 
 const unspentTx = new Map();
 
+
+import {addUTxO, deleteUTxO} from '../data/utxoDAO';
+
+
+
 const addTransactionsToUTxO = (transactions, blockHash) => {
 
     transactions.forEach(transaction => {
-        const UTxData = {
-            blockHash: blockHash,
-            transactionData: transaction[1].transaction, 
-            unspentOutputs: []
-        };
+
+        console.log('transaction:', transaction);
 
         transaction[1].transaction.outputs.forEach((output, index) => {
-            UTxData.unspentOutputs.push(index);
+
+            addUTxO({txID: transaction[0], index, output, blockHash});
         });
-
-        unspentTx.set(transaction[0], UTxData);
     });
-
-    console.log('entries:', [...unspentTx.entries()]);
 };
 
 const removeOldUTxO = (minedTransactions) => {

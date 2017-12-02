@@ -28,18 +28,18 @@ const Body = () => {
                     <MiningButton />
                 </Col>
                 <Col xs={3}>
-                    <Button raised={true} style={{width: '100%'}} color='primary' onClick={()=>{sendMessage({type: 'sync_blockchain'});}}>
-                        Sync blockchain
+                    <Button raised={true} style={{width: '100%'}} color='primary' onClick={()=>{sendMessage({type: 'fetch_blockchain'});}}>
+                        Fetch blockchain
                     </Button>
                 </Col>
                 <Col xs={3}>
                     <Button raised={true} style={{width: '100%'}} color='primary' onClick={()=>{sendMessage({type: 'sync_unconfirmed_transactions'});}}>
-                        Sync Tx pool
+                        Fetch Tx pool
                     </Button>
                 </Col>
                 <Col xs={3}>
-                    <Button raised={true} style={{width: '100%'}} color='primary' onClick={()=>{sendMessage({type: 'UTxO'});}}>
-                        Sync UTxO
+                    <Button raised={true} style={{width: '100%'}} color='primary' onClick={()=>{sendMessage({type: 'fetch_UTxO'});}}>
+                        Fetch UTxO
                     </Button>
                 </Col>
             </Row>

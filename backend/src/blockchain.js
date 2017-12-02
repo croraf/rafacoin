@@ -9,12 +9,13 @@ const blockchain = {
 
 import {insertBlockInDB} from './data/blockchainDAO';
 
-let blockchainTipHash = 'c00ee95ff114855f2cae409ebb44c8f812b2505e144ccb076feddfdcc08053e3';
-
-let blockchainHeight = 0;
+const blockchainMetadata = {
+    blockchainHeight: undefined,
+    blockchainTipHash: undefined
+};
 
 const validateBlock = (block, hash) => {
-    if (block.previousHash !== blockchainTipHash) {
+    if (block.previousHash !== blockchainMetadata.blockchainTipHash) {
         throw({reason: 'Doesn\'t reference the blockchainTipHash'});
     } else {
         log1('Comparing hash and target:', hash + '\n ' + block.target);
@@ -40,8 +41,8 @@ const addToBlockchain = (block, hash) => {
         updateBlockchainMetadata(hash);
         
         blockchain[hash] = block;
-        blockchainTipHash = hash;
-        blockchainHeight++;
+        blockchainMetadata.blockchainTipHash = hash;
+        blockchainMetadata.blockchainHeight++;
         log1('block added:' + hash, block);
         return;
     } else {
@@ -49,4 +50,4 @@ const addToBlockchain = (block, hash) => {
     }
 };
 
-export {addToBlockchain, blockchain, blockchainTipHash, blockchainHeight};
+export {addToBlockchain, blockchain, blockchainMetadata};

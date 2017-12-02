@@ -17,6 +17,8 @@ import {sendInitialState} from './sendInitialState';
 
 console.log('BACKEND STARTED');
 
+import {getUTxO} from './data/utxoDAO';
+
 wss.on('connection', (ws) => {
 
     websockets.push(ws);
@@ -39,7 +41,7 @@ wss.on('connection', (ws) => {
                 miningEndpoint();
                 break;
 
-            case 'sync_blockchain':
+            case 'fetch_blockchain':
                 console.log('fetching blockchain');
                 const blockchainArray = [];
                 const blockchainMetadata = await getMetadata();
@@ -59,9 +61,10 @@ wss.on('connection', (ws) => {
                 console.log('fetching unconfirmed transactions');
                 ws.send(JSON.stringify({type: 'unconfirmed transactions', data: getTransactionsSortedByFee()}));
                 break;
-            case 'UTxO':
-                console.log([...unspentTx.entries()]);
-                ws.send(JSON.stringify({type: 'UTxO', data: [...unspentTx.entries()]}));
+            case 'fetch_UTxO':
+
+                const AllUTxO = await getUTxO();
+                ws.send(JSON.stringify({type: 'UTxO', data: AllUTxO}));
                 break;
         }
 

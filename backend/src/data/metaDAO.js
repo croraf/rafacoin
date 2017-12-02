@@ -33,7 +33,8 @@ const updateBlockchainMetadata = (hash) => {
                     {
                         type: 'blockchainMeta',
                         blockchainTipHash: hash,
-                        blockchainHeight: 0
+                        blockchainHeight: 0,
+                        target: '0000100ff114855f2cae409ebb44c8f812b2505e144ccb076feddfdcc08053e3'
                     }, 
                     (err, res) => {
                         if (err) reject(err);
