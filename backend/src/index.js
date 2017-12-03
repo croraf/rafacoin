@@ -13,7 +13,7 @@ import {unspentTx} from './transactions/unspentTransactionOutputs';
 import {getBlockFromDB} from './data/blockchainDAO';
 import {getMetadata} from './data/metaDAO';
 
-import {sendInitialState} from './sendInitialState';
+import {sendDatabaseState} from './sendDatabaseState';
 
 console.log('BACKEND STARTED');
 
@@ -23,7 +23,7 @@ wss.on('connection', (ws) => {
 
     websockets.push(ws);
 
-    sendInitialState(ws);
+    sendDatabaseState(ws);
 
     ws.on('message', async message => {
         const parsedMessage = JSON.parse(message);
@@ -41,30 +41,14 @@ wss.on('connection', (ws) => {
                 miningEndpoint();
                 break;
 
-            case 'fetch_blockchain':
-                console.log('fetching blockchain');
-                const blockchainArray = [];
-                const blockchainMetadata = await getMetadata();
-                console.log('metadata:', metadata);
-
-                let blockchainTipHashTemp = blockchainMetadata.blockchainTipHash;
-                while (blockchainTipHashTemp) {
-
-                    const currentBlock = await getBlockFromDB(blockchainTipHashTemp);
-                    blockchainArray.push([blockchainTipHashTemp, currentBlock.block]);
-                    blockchainTipHashTemp = currentBlock.block.previousHash;
-                }
-                ws.send(JSON.stringify({type: 'blockchain', data: blockchainArray}));
+            case 'fetch_database_state':
+                
+                sendDatabaseState(ws);
                 break;
 
             case 'sync_unconfirmed_transactions':
                 console.log('fetching unconfirmed transactions');
                 ws.send(JSON.stringify({type: 'unconfirmed transactions', data: getTransactionsSortedByFee()}));
-                break;
-            case 'fetch_UTxO':
-
-                const AllUTxO = await getUTxO();
-                ws.send(JSON.stringify({type: 'UTxO', data: AllUTxO}));
                 break;
         }
 

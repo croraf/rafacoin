@@ -28,8 +28,8 @@ const Body = () => {
                     <MiningButton />
                 </Col>
                 <Col xs={3}>
-                    <Button raised={true} style={{width: '100%'}} color='primary' onClick={()=>{sendMessage({type: 'fetch_blockchain'});}}>
-                        Fetch blockchain
+                    <Button raised={true} style={{width: '100%'}} color='primary' onClick={()=>{sendMessage({type: 'fetch_database_state'});}}>
+                        Fetch database state
                     </Button>
                 </Col>
                 <Col xs={3}>
@@ -37,11 +37,11 @@ const Body = () => {
                         Fetch Tx pool
                     </Button>
                 </Col>
-                <Col xs={3}>
+                {/* <Col xs={3}>
                     <Button raised={true} style={{width: '100%'}} color='primary' onClick={()=>{sendMessage({type: 'fetch_UTxO'});}}>
                         Fetch UTxO
                     </Button>
-                </Col>
+                </Col> */}
             </Row>
                 
             <TransactionFormDialog />

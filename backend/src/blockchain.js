@@ -1,18 +1,16 @@
-const blockchain = {
-    'c00ee95ff114855f2cae409ebb44c8f812b2505e144ccb076feddfdcc08053e3': {
-        previousHash: undefined,
-        transactions: [],
-        target: '0000100ff114855f2cae409ebb44c8f812b2505e144ccb076feddfdcc08053e3',
-        noonce: 0
-    }
-};
 
-import {insertBlockInDB} from './data/blockchainDAO';
+import {getMetadata, updateBlockchainMetadata} from './data/metaDAO';
+import {getBlockFromDB, insertBlockInDB} from './data/blockchainDAO';
+
+import {makeHash} from './hashing';
+import {log1} from './utilities';
+
 
 const blockchainMetadata = {
     blockchainHeight: undefined,
     blockchainTipHash: undefined
 };
+
 
 const validateBlock = (block, hash) => {
     if (block.previousHash !== blockchainMetadata.blockchainTipHash) {
@@ -28,9 +26,6 @@ const validateBlock = (block, hash) => {
     }
 };
 
-import {makeHash} from './hashing';
-import {log1} from './utilities';
-import { updateBlockchainMetadata } from './data/metaDAO';
 
 const addToBlockchain = (block, hash) => {
 
@@ -50,4 +45,28 @@ const addToBlockchain = (block, hash) => {
     }
 };
 
-export {addToBlockchain, blockchain, blockchainMetadata};
+
+const getBlockchainArray = async () => {
+    
+    const blockchainArray = [];
+    const blockchainMetadataLoaded = await getMetadata();
+    console.log('metadata:', blockchainMetadataLoaded);
+
+    blockchainMetadata.blockchainHeight = blockchainMetadataLoaded.blockchainHeight;
+    blockchainMetadata.blockchainTipHash = blockchainMetadataLoaded.blockchainTipHash;
+    blockchainMetadata.target = blockchainMetadataLoaded.target;
+
+    let blockchainTipHashTemp = blockchainMetadataLoaded.blockchainTipHash;
+    while (blockchainTipHashTemp) {
+
+        const currentBlock = await getBlockFromDB(blockchainTipHashTemp);
+        blockchainArray.push([blockchainTipHashTemp, currentBlock.block]);
+        blockchainTipHashTemp = currentBlock.block.previousHash;
+    }
+
+    //console.log('blockchainArray:', blockchainArray);
+    return blockchainArray;
+}
+
+
+export {addToBlockchain, blockchainMetadata, getBlockchainArray};
