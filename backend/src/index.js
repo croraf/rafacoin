@@ -28,7 +28,6 @@ wss.on('connection', (ws) => {
         switch (parsedMessage.type) {
 
             case 'create_transaction':
-                console.log('making transaction');
                 createTransaction(parsedMessage.data);
                 break;
 

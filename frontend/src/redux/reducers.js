@@ -15,6 +15,8 @@ const transactionsReducer = (state = [], action) => {
       case 'transactions':
         return action.transactions;
       case 'newTransaction':
+        
+        console.log('New transaction received: \n', action.transaction);
         return [action.transaction, ...state];
       case 'deleteTransaction':
         console.log('remove from pool:', action.transactionHash);

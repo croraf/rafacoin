@@ -6,8 +6,8 @@ const formatBlockInputs = (inputs) => {
          {inputs.map((input, index) => {
             return (
               <div key={index} style={{marginLeft: '20px'}}>
-                  <div>txHash: {input.txHash}</div>
-                  <div>output index: {input.outputIndex}</div>
+                  <div>Tx ID: {input.txID}</div>
+                  <div>Index: {input.index}</div>
               </div>
             );
          })}
@@ -37,7 +37,7 @@ const formatBlockTransactions = (transactions) => {
             {transactions.map(((transaction, index) => {
                 return (
                     <div key={index}>
-                        <div style={{fontWeight: 'bold'}}>hash: {transaction[0]}</div>
+                        <div style={{fontWeight: 'bold'}}>Tx ID: {transaction[0]}</div>
                         <div>inputs: {formatBlockInputs(transaction[1].transaction.inputs)}</div>
                         <div>outputs: {formatBlockOutputs(transaction[1].transaction.outputs)}</div>
                         <div>fee: {transaction[1].transaction.fee}</div>

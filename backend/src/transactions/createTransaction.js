@@ -7,18 +7,22 @@ import {makeHash} from '../hashing';
 
 import {websockets} from '../websockets';
 
-const createTransaction = (data) => {
 
-    console.log('transaction data:', data);
-    let transactionData = {
-        inputs: data.inputs.map(input => {
-            return {txHash: input.txHash, outputIndex: input.outputIndex}
-        }),
-        outputs: data.outputs.map(output => {
-            return {address: output.address, amount: output.amount}
-        }),
-        fee: data.fee
-    };
+const substituteInputs = (inputIDs) => {
+
+    return inputIDs.map(inputID => {
+        return {txID: 'dummy', index: 'dummy'};
+    });
+}
+
+const createTransaction = (transactionData) => {
+
+    console.log('Transaction data:', transactionData);
+
+    const substitutedInputs = substituteInputs(transactionData.inputs);
+    transactionData.inputs = substitutedInputs;
+
+    console.log('Substituted transaction data: \n', transactionData);
 
     const signedTransaction = signTransaction(transactionData);
     const signedTransactionHash = makeHash(JSON.stringify(signedTransaction));
