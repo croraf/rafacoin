@@ -12,7 +12,7 @@ const getMetadata = (hash) => {
                     if (err) reject(err);
                     else {
                         db.close();
-                        console.log('Metadata found: ', res);
+                        // console.log('Metadata found: ', res);
                         resolve(res);
                     }
                 });
@@ -32,7 +32,7 @@ const updateBlockchainMetadata = (blockchainTipHash, blockchainHeight) => {
                     {type: 'blockchainMeta'},
                     {
                         type: 'blockchainMeta',
-                        blockchainTipHash: hash,
+                        blockchainTipHash: blockchainTipHash,
                         blockchainHeight: blockchainHeight,
                         target: '0000100ff114855f2cae409ebb44c8f812b2505e144ccb076feddfdcc08053e3'
                     }, 

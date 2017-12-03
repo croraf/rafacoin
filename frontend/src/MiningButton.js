@@ -11,7 +11,7 @@ class MiningButtonComponent extends React.Component {
                     raised={true}
                     style={{width: '100%'}}
                     color='primary'
-                    onClick={()=>{sendMessage({type: 'start_mining'});}}
+                    onClick={()=>{sendMessage({type: 'mine'});}}
                     disabled={this.props.mining}
                     >
 

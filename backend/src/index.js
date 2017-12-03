@@ -1,23 +1,18 @@
+import {miningEndpoint} from './mining/miningEndpoint';
+import {websockets} from './websockets';
+import {createTransaction} from './transactions/createTransaction';
+import {getTransactionsSortedByFee} from './transactions/transactions';
+
+import {sendDatabaseState} from './sendDatabaseState';
+
+import {loadBlockchainMetadata} from './blockchain';
 
 const WebSocket = require('ws');
 
 const wss = new WebSocket.Server({ port: 9000 });
 
-import {miningEndpoint} from './mining/miningEndpoint';
-import {websockets} from './websockets';
-import {blockchain, blockchainTipHash} from './blockchain';
-import {createTransaction} from './transactions/createTransaction';
-import {getTransactionsSortedByFee} from './transactions/transactions';
-import {unspentTx} from './transactions/unspentTransactionOutputs';
-
-import {getBlockFromDB} from './data/blockchainDAO';
-import {getMetadata} from './data/metaDAO';
-
-import {sendDatabaseState} from './sendDatabaseState';
-
-console.log('BACKEND STARTED');
-
-import {getUTxO} from './data/utxoDAO';
+// TODO: make this synchronous
+loadBlockchainMetadata();
 
 wss.on('connection', (ws) => {
 
@@ -37,7 +32,7 @@ wss.on('connection', (ws) => {
                 createTransaction(parsedMessage.data);
                 break;
 
-            case 'start_mining':
+            case 'mine':
                 miningEndpoint();
                 break;
 
@@ -51,12 +46,12 @@ wss.on('connection', (ws) => {
                 ws.send(JSON.stringify({type: 'unconfirmed transactions', data: getTransactionsSortedByFee()}));
                 break;
         }
-
     });
 
     ws.on('close', () => {
         websockets.pop();
     });
-
-    
 });
+
+
+console.log('BACKEND STARTED');

@@ -8,7 +8,8 @@ import {log1} from './utilities';
 
 const blockchainMetadata = {
     blockchainHeight: undefined,
-    blockchainTipHash: undefined
+    blockchainTipHash: undefined,
+    target: undefined
 };
 
 
@@ -35,10 +36,9 @@ const addToBlockchain = (block, hash) => {
 
         updateBlockchainMetadata(hash, blockchainMetadata.blockchainHeight+1);
         
-        blockchain[hash] = block;
         blockchainMetadata.blockchainTipHash = hash;
         blockchainMetadata.blockchainHeight++;
-        log1('block added:' + hash, block);
+        log1('block added:' + hash + '\n', block);
         return;
     } else {
         throw {reason: 'Validation failed! Block not added to blockchain!'};
@@ -49,14 +49,9 @@ const addToBlockchain = (block, hash) => {
 const getBlockchainArray = async () => {
     
     const blockchainArray = [];
-    const blockchainMetadataLoaded = await getMetadata();
-    console.log('metadata:', blockchainMetadataLoaded);
+    
+    let blockchainTipHashTemp = blockchainMetadata.blockchainTipHash;
 
-    blockchainMetadata.blockchainHeight = blockchainMetadataLoaded.blockchainHeight;
-    blockchainMetadata.blockchainTipHash = blockchainMetadataLoaded.blockchainTipHash;
-    blockchainMetadata.target = blockchainMetadataLoaded.target;
-
-    let blockchainTipHashTemp = blockchainMetadataLoaded.blockchainTipHash;
     while (blockchainTipHashTemp) {
 
         const currentBlock = await getBlockFromDB(blockchainTipHashTemp);
@@ -69,4 +64,17 @@ const getBlockchainArray = async () => {
 }
 
 
-export {addToBlockchain, blockchainMetadata, getBlockchainArray};
+const loadBlockchainMetadata = async () => {
+
+    console.log('LOADING BLOCKCHAIN METADATA...');
+
+    const blockchainMetadataLoaded = await getMetadata();
+
+    blockchainMetadata.blockchainHeight = blockchainMetadataLoaded.blockchainHeight;
+    blockchainMetadata.blockchainTipHash = blockchainMetadataLoaded.blockchainTipHash;
+    blockchainMetadata.target = blockchainMetadataLoaded.target;
+
+    console.log('Metadata loaded from DB:\n', blockchainMetadata);
+};
+
+export {addToBlockchain, blockchainMetadata, getBlockchainArray, loadBlockchainMetadata};
