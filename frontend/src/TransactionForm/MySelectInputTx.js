@@ -6,12 +6,12 @@ const mapDispatchToProps = (dispatch) => ({dispatch});
 
 const mapStateToProps = (state) => {
   return {
-      selectItems: state.UTxO.map(item => item[0])
+      selectItems: state.UTxO
 }};
 
-const MySelectInputTx = connect(
+const MySelectUnspentOutputs = connect(
   mapStateToProps,
   mapDispatchToProps
 )(MySelectComponent);
 
-export {MySelectInputTx};
+export {MySelectUnspentOutputs};

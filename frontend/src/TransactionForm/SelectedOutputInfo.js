@@ -7,25 +7,26 @@ import { Grid, Row, Col } from 'react-flexbox-grid';
 class SelectedOutputInfoComponent extends React.Component {
     render () {
 
-        const {UTxFound, outputIndex} = this.props;
+        const {selectedUTxO} = this.props;
 
         console.log('UTX found:', typeof outputIndex);
         return (
-            <div>
-                <Row>
-                    Controlling address: { 
-                        UTxFound && (outputIndex !== undefined) && UTxFound[1].transactionData.outputs[0].address
-                    }
-                </Row>
-                <Row>
-                    Amount: { 
-                        UTxFound && (outputIndex !== undefined) && UTxFound[1].transactionData.outputs[0].amount
-                    }
-                </Row>
-                <Row>
-                    Optional: error, you do not controll this address :)
-                </Row>
-            </div>
+            selectedUTxO ? 
+                (<div>
+                    <Row>
+                        Controlling address: { 
+                            selectedUTxO.output.address
+                        }
+                    </Row>
+                    <Row>
+                        Amount: { 
+                            selectedUTxO.output.amount
+                        }
+                    </Row>
+                    <Row>
+                        Optional: error, you do not controll this address :)
+                    </Row>
+                </div>) : <div />
         );
     }
 }
@@ -38,14 +39,13 @@ const mapDispatchToProps = () => ({});
 const mapStateToProps = (state, props) => {
 
     const selectedData = state.form.transaction.values.inputs[props.index];
-    console.log('selected data:', selectedData);
+    console.log('Selected unspent output _id:', selectedData);
 
-    const UTxFound = state.UTxO.find(element => element[0] === selectedData.txHash);
+    const selectedUTxO = state.UTxO.find(element => element._id === selectedData);
 
-    console.log('UTX found:', UTxFound);
+    console.log('Selected UTxO:', selectedUTxO);
     return {
-        UTxFound: UTxFound,
-        outputIndex: selectedData.outputIndex
+        selectedUTxO
     }
 };
 

@@ -38,7 +38,7 @@ const addToBlockchain = (block, hash) => {
 
         insertBlockInDB(hash, block);
 
-        updateBlockchainMetadata(hash);
+        updateBlockchainMetadata(hash, blockchainMetadata.blockchainHeight+1);
         
         blockchain[hash] = block;
         blockchainMetadata.blockchainTipHash = hash;

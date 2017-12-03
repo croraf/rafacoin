@@ -13,7 +13,7 @@ import {change} from 'redux-form';
 class MySelectComponent extends React.Component {
 
     render () {
-        console.log('output index select items:', this.props.selectItems);
+        console.log('Select items:', this.props.selectItems);
 
         return (
             <FormControl style={{width: '95%'}}>
@@ -30,7 +30,7 @@ class MySelectComponent extends React.Component {
                 >
                     {this.props.selectItems.map((item) => (
 
-                        <MenuItem value={item} key={item}>{item.toString()}</MenuItem>
+                        <MenuItem value={item._id} key={item._id}>{item.txID + ' - ' + item.index}</MenuItem>
                     ))}
                 </Select>
             </FormControl>

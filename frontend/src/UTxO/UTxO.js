@@ -10,19 +10,22 @@ class UTxO extends React.Component {
             <div style={{borderBottom: '1px solid black'}}>Unspent tx outputs:</div>
             {this.props.UTxO.map(UTxOutput => {
                 return(
-                    <div key={UTxOutput.txID + '-' + UTxOutput.index}>
-                      <div style={{fontWeight: 'bold'}}>
-                          transaction: {UTxOutput.txID}
-                      </div>
-                      <div>
-                          location block hash: {UTxOutput.blockHash}
-                      </div>
-                      <div>
-                        transaction data: TO ADD!!!
-                      </div>
-                      <div style={{marginRight: '5px'}}>
-                          index: {UTxOutput.index}
-                      </div>
+                    <div key={UTxOutput._id}>
+                        <div style={{fontWeight: 'bold'}}>
+                            transaction ID: {UTxOutput.txID}
+                        </div>
+                        <div style={{fontWeight: 'bold'}}>
+                            index: {UTxOutput.index}
+                        </div>
+                        <div>
+                            Controlling address: {UTxOutput.output.address}
+                        </div>
+                        <div>
+                            Amount: {UTxOutput.output.amount}
+                        </div>
+                        <div>
+                            location block hash: {UTxOutput.blockHash}
+                        </div>
                     </div>
                 );
             })}

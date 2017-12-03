@@ -5,8 +5,7 @@ import { Grid, Row, Col } from 'react-flexbox-grid';
 
 import {MyTextInput} from './MyTextInput';
 
-import {MySelectInputTx} from './MySelectInputTx';
-import {MySelectInputOutputIndex} from './MySelectInputOutputIndex';
+import {MySelectUnspentOutputs} from './MySelectInputTx';
 import {SelectedOutputInfo} from './SelectedOutputInfo';
 
 import Button from 'material-ui/Button';
@@ -55,11 +54,8 @@ const renderInputMembers = ({fields}) => {
                 return (
                     <div key={index}>
                         <Row style={{marginTop: '10px', marginBottom: '5px'}}>
-                            <Col xs={8}>
-                                <Field name={`${input}.txHash`} component={MySelectInputTx} index={index} label={`Input ${index} Tx hash`}/>
-                            </Col>
-                            <Col xs={3}>
-                                <Field name={`${input}.outputIndex`} component={MySelectInputOutputIndex} index={index} label={`Input ${index} Tx output index`}/>
+                            <Col xs={11}>
+                                <Field name={`${input}`} component={MySelectUnspentOutputs} index={index} label={`Input ${index} reference`}/>
                             </Col>
                             <Col xs={1} style={{margin: 'auto'}}>
                                 <IconButton onClick={() => fields.remove(index)}>
