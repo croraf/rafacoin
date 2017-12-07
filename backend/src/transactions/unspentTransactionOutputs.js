@@ -2,8 +2,28 @@
 const unspentTx = new Map();
 
 
-import {addUTxO, deleteUTxO} from '../data/utxoDAO';
+import {addUTxO, deleteUTxO, getUTxO} from '../data/utxoDAO';
 
+
+const substituteInputsFromIDs = async ( input_ids ) => {
+
+    const substitutedInputs = [];
+
+    console.log('input_ids:.....', input_ids);
+
+    for (const i in input_ids) {
+
+        console.log('substituting:.....', input_ids[i]);
+
+        const UTxO = await getUTxO(input_ids[i]);
+        
+        substitutedInputs.push({txID: 'dummy', index: 'dummy'});
+    }
+
+    console.log('...........', substitutedInputs);
+
+    return substitutedInputs;
+}
 
 
 const addTransactionsToUTxO = (transactions, blockHash) => {
@@ -36,5 +56,5 @@ const removeOldUTxO = (minedTransactions) => {
     });
 };
 
-export {unspentTx, addTransactionsToUTxO, removeOldUTxO};
+export {unspentTx, addTransactionsToUTxO, removeOldUTxO, substituteInputsFromIDs};
 

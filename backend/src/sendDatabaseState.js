@@ -4,7 +4,7 @@ import {getBlockFromDB} from './data/blockchainDAO';
 import {blockchainMetadata} from './blockchain';
 
 
-import {getUTxO} from './data/utxoDAO';
+import {getAllUTxO} from './data/utxoDAO';
 
 import {getBlockchainArray} from './blockchain';
 
@@ -19,7 +19,7 @@ const sendDatabaseState = async (ws) => {
 
 
     console.log('Sending UTxO state!');
-    const AllUTxO = await getUTxO();
+    const AllUTxO = await getAllUTxO();
     ws.send(JSON.stringify({type: 'UTxO', data: AllUTxO}));
 };
 

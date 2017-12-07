@@ -1,4 +1,5 @@
 var MongoClient = require('mongodb').MongoClient;
+var ObjectID = require('mongodb').ObjectID;
 var url = "mongodb://localhost:27017/rafacoinDB";
 
 const addUTxO = (UTxO) => {
@@ -31,7 +32,24 @@ const deleteUTxO = (txID, outputIndex) => {
     
 }
 
-const getUTxO = (hash) => {
+const getUTxO = (_id) => {
+    
+    return new Promise((resolve, reject) => {
+
+        MongoClient.connect(url, (err, db) => {
+            if (err) reject(err);
+            else {
+                db.collection("UTxO").findOne({'_id': new ObjectID(_id)}, (err, result) => {
+                    resolve(result);
+                });
+            }
+
+            db.close();
+        }); 
+    });
+}
+
+const getAllUTxO = (hash) => {
     
     return new Promise((resolve, reject) => {
 
@@ -49,4 +67,4 @@ const getUTxO = (hash) => {
     });
 }
 
-export {addUTxO, deleteUTxO, getUTxO};
+export {addUTxO, deleteUTxO, getUTxO, getAllUTxO};

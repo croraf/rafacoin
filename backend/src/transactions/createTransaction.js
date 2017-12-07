@@ -7,19 +7,14 @@ import {makeHash} from '../hashing';
 
 import {websockets} from '../websockets';
 
+import {substituteInputsFromIDs} from './unspentTransactionOutputs';
 
-const substituteInputs = (inputIDs) => {
 
-    return inputIDs.map(inputID => {
-        return {txID: 'dummy', index: 'dummy'};
-    });
-}
-
-const createTransaction = (transactionData) => {
+const createTransaction = async (transactionData) => {
 
     console.log('Transaction data:', transactionData);
 
-    const substitutedInputs = substituteInputs(transactionData.inputs);
+    const substitutedInputs = await substituteInputsFromIDs(transactionData.inputs);
     transactionData.inputs = substitutedInputs;
 
     console.log('Substituted transaction data: \n', transactionData);
