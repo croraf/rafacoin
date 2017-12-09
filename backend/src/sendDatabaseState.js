@@ -1,12 +1,9 @@
-import {getMetadata} from './data/metaDAO';
-import {getBlockFromDB} from './data/blockchainDAO';
-
-import {blockchainMetadata} from './blockchain';
-
 
 import {getAllUTxO} from './data/utxoDAO';
 
 import {getBlockchainArray} from './blockchain';
+
+import {getTransactionsFromDB} from './data/transactionsDAO';
 
 const sendDatabaseState = async (ws) => {
 
@@ -21,6 +18,11 @@ const sendDatabaseState = async (ws) => {
     console.log('Sending UTxO state!');
     const AllUTxO = await getAllUTxO();
     ws.send(JSON.stringify({type: 'UTxO', data: AllUTxO}));
+
+
+    console.log('Sending transactions pool state!');
+    const transactionsPool = await getTransactionsFromDB();
+    ws.send(JSON.stringify({type: 'transactionsPool', data: transactionsPool}));
 };
 
 

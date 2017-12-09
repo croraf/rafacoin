@@ -4,13 +4,13 @@ import {transactionPool} from './transactionsPool';
 
 const keys = generateKeys();
 
-const signTransaction = (transaction) => {
+const signTransaction = (transactionPayload) => {
 
-    const signature = signData(JSON.stringify(transaction), keys.private);
+    const signature = signData(JSON.stringify(transactionPayload), keys.private);
 
     const signedTransaction = {
-        transaction: transaction,
-        signature: signature
+        transactionPayload,
+        signature
     };
 
     return signedTransaction;

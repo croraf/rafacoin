@@ -37,10 +37,10 @@ const formatBlockTransactions = (transactions) => {
             {transactions.map(((transaction, index) => {
                 return (
                     <div key={index}>
-                        <div style={{fontWeight: 'bold'}}>Tx ID: {transaction[0]}</div>
-                        <div>inputs: {formatBlockInputs(transaction[1].transaction.inputs)}</div>
-                        <div>outputs: {formatBlockOutputs(transaction[1].transaction.outputs)}</div>
-                        <div>fee: {transaction[1].transaction.fee}</div>
+                        <div style={{fontWeight: 'bold'}}>Tx ID: {transaction.txID}</div>
+                        <div>inputs: {formatBlockInputs(transaction.signedTransaction.transactionPayload.inputs)}</div>
+                        <div>outputs: {formatBlockOutputs(transaction.signedTransaction.transactionPayload.outputs)}</div>
+                        <div>fee: {transaction.signedTransaction.transactionPayload.fee}</div>
                     </div>
                 );
             }))}

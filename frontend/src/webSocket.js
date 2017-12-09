@@ -14,29 +14,32 @@ const setupWebSocket = () => {
               console.log(parsedMessage.data);
               store.dispatch({type: 'newBlock', block: parsedMessage.data});
               break;
+              
             case 'blockchain':
-            
               store.dispatch({type: 'blockchain', blockchain: parsedMessage.data});
-              break;
-            
-            case 'sync transactions':
-              /*console.log(parsedMessage.data);*/
-              /*store.dispatch({type: 'transactions', transactions: parsedMessage.data});*/
               break;
 
             case 'newTransaction':
                 store.dispatch({type: 'newTransaction', transaction: parsedMessage.data })
                 break;
+
             case 'deleteTransaction':
                 store.dispatch({type: 'deleteTransaction', transactionHash: parsedMessage.data});
                 break;
+
+            case 'transactionsPool':
+                store.dispatch({type: 'transactionsPool', data: parsedMessage.data});
+                break;
+
             case 'UTxO':
                 store.dispatch({type: 'UTxO', data: parsedMessage.data});
                 break;
+
             case 'miningInfo':
                 store.dispatch({type: 'miningInfo', data: parsedMessage.data});
                 console.log(parsedMessage);
                 break;
+
             default:
               console.log(parsedMessage);
               break;

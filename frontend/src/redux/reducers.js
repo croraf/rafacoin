@@ -12,8 +12,9 @@ const blockchainReducer = (state = [], action) => {
 
 const transactionsReducer = (state = [], action) => {
     switch(action.type){
-      case 'transactions':
-        return action.transactions;
+      case 'transactionsPool':
+        console.log('transactions pool received:', action.data);
+        return action.data;
       case 'newTransaction':
         
         console.log('New transaction received: \n', action.transaction);

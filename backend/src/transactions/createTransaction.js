@@ -2,6 +2,8 @@
 import {signTransaction, getTransactionsSortedByFee} from './transactions';
 import {transactionPool} from './transactionsPool';
 
+import {addTransactionToDB} from '../data/transactionsDAO';
+
 import {log1} from '../utilities';
 import {makeHash} from '../hashing';
 
@@ -10,25 +12,28 @@ import {websockets} from '../websockets';
 import {substituteInputsFromIDs} from './unspentTransactionOutputs';
 
 
-const createTransaction = async (transactionData) => {
+const createTransaction = async (transactionPayload) => {
 
-    console.log('Transaction data:', transactionData);
+    console.log('Transaction data:', transactionPayload);
 
-    const substitutedInputs = await substituteInputsFromIDs(transactionData.inputs);
-    transactionData.inputs = substitutedInputs;
+    const substitutedInputs = await substituteInputsFromIDs(transactionPayload.inputs);
+    transactionPayload.inputs = substitutedInputs;
 
-    console.log('Substituted transaction data: \n', transactionData);
+    console.log('Substituted transaction data: \n', transactionPayload);
 
-    const signedTransaction = signTransaction(transactionData);
-    const signedTransactionHash = makeHash(JSON.stringify(signedTransaction));
+    const signedTransaction = signTransaction(transactionPayload);
+    const txID = makeHash(JSON.stringify(signedTransaction));
 
-    if (!transactionPool.has(signedTransactionHash)) {
-        transactionPool.set(signedTransactionHash, signedTransaction);
-        
-        const transaction = [signedTransactionHash, signedTransaction];
+    // what if there is confilicting transaction in the pool
+    
+    addTransactionToDB(txID, signedTransaction);
+    
+    const transaction = {
+        txID,
+        signedTransaction
+    };
 
-        websockets[0].send(JSON.stringify({type: 'newTransaction', data: transaction}));
-    }
+    websockets[0].send(JSON.stringify({type: 'newTransaction', data: transaction}));
     
 
     
