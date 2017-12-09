@@ -49,7 +49,7 @@ const getUTxO = (_id) => {
     });
 }
 
-const getAllUTxO = (hash) => {
+const getAllUTxO = () => {
     
     return new Promise((resolve, reject) => {
 

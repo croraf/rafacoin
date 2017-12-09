@@ -13,11 +13,9 @@ const substituteInputsFromIDs = async ( input_ids ) => {
 
     for (const i in input_ids) {
 
-        console.log('substituting:.....', input_ids[i]);
-
         const UTxO = await getUTxO(input_ids[i]);
         
-        substitutedInputs.push({txID: 'dummy', index: 'dummy'});
+        substitutedInputs.push({txID: UTxO.txID, index: UTxO.index});
     }
 
     console.log('...........', substitutedInputs);
