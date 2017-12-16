@@ -21,10 +21,10 @@ const deleteUTxO = (txID, outputIndex) => {
         MongoClient.connect(url, (err, db) => {
             if (err) throw err;
     
-            db.collection("UTxO").delete({txID: txID, outputIndex: outputIndex}, (err, res) => {
+            db.collection("UTxO").deleteOne({txID: txID, outputIndex: outputIndex}, (err, res) => {
               if (err) throw err;
               db.close();
-              console.log('found:', res);
+              console.log('found:', res.result);
               resolve(res);
             });
         }); 

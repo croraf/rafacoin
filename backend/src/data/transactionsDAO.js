@@ -23,15 +23,31 @@ const getTransactionsFromDB = () => {
             if (err) throw err;
     
             db.collection("transactions").find({}).toArray((err, res) => {
-              if (err) throw err;
-              db.close();
-              console.log('found:', res);
-              resolve(res);
+                if (err) throw err;
+                db.close();
+                console.log('found:', res);
+                resolve(res);
             });
         }); 
     });
+}
+
+const removeTransactionFromDB = (txID) => {
+
+    return new Promise((resolve, reject) => {
+        
+        MongoClient.connect(url, (err, db) => {
+            if (err) throw err;
     
+            db.collection("transactions").deleteOne({txID: txID}, (err, res) => {
+                if (err) throw err;
+                db.close();
+                console.log('found:', res.result);
+                resolve(res);
+            });
+        }); 
+    });
 }
 
 
-export {addTransactionToDB, getTransactionsFromDB};
+export {addTransactionToDB, getTransactionsFromDB, removeTransactionFromDB};

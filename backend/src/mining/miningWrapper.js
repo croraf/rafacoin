@@ -65,14 +65,14 @@ const constructStoreAndSendMinedBlock = (calculatedNonce, nextBlockHeaderTemplat
     }
 }
 
-const startMining = () => {
+const startMining = async () => {
 
     log1('Creating separate mining process:', '');
     
     const miningProcess = fork(process.env.NODE_ENV ? 'src/mining/miningSubprocess.js' : 'dist/mining/miningSubprocess.js');
 
 
-    miningProcess.on('message', (msg) => {
+    miningProcess.on('message', async (msg) => {
 
         console.log('Message from mining subprocess received: ', msg);
 
@@ -80,9 +80,9 @@ const startMining = () => {
 
         console.log('Calculated nonce: ', calculatedNonce);
 
+        await removeTransactionsFromPool(selectedTransactions);
 
-        removeTransactionsFromPool(selectedTransactions);
-        removeOldUTxO(selectedTransactions);
+        await removeOldUTxO(selectedTransactions);
         
         constructStoreAndSendMinedBlock(calculatedNonce, nextBlockHeaderTemplate, transactions);
 
@@ -100,7 +100,7 @@ const startMining = () => {
     
     const coinbase = generateCoinbase();
     
-    const selectedTransactions = selectTransactionsToMine();
+    const selectedTransactions = await selectTransactionsToMine();
 
     const transactions = [coinbase].concat(selectedTransactions);
 

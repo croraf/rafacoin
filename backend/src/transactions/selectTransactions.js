@@ -1,13 +1,27 @@
 
-import {transactionPool} from './transactionsPool';
-import {getTransactionsSortedByFee} from './transactions';
-import {makeHash} from '../hashing';
 import {log1} from '../utilities';
 import {websockets} from '../websockets';
 
-const selectTransactionsToMine = () => {
+import {getTransactionsFromDB, removeTransactionFromDB} from '../data/transactionsDAO';
 
-    const allSortedTransactions = getTransactionsSortedByFee();
+
+const compareTransactionsByFee = (a, b) => {
+    console.log('fee1:', a.signedTransaction.transactionPayload.fee, 'fee2:', b.signedTransaction.transactionPayload.fee);
+    return a.signedTransaction.transactionPayload.fee - b.signedTransaction.transactionPayload.fee;
+};
+
+const getTransactionsSortedByFee = async() => {
+
+    const transactionsPool = await getTransactionsFromDB();
+
+    console.log('transactionPool:', transactionsPool);
+
+    return transactionsPool.sort(compareTransactionsByFee);
+};
+
+const selectTransactionsToMine = async () => {
+
+    const allSortedTransactions = await getTransactionsSortedByFee();
 
     const selectedTransactions = [];
 
@@ -18,20 +32,23 @@ const selectTransactionsToMine = () => {
 
 
     log1('Selected transactions length:', selectedTransactions.length);
-    log1('Selected transactions:', selectedTransactions.map(transactionElement => transactionElement[1].transaction));
+    log1('Selected transactions:', selectedTransactions);
     
     return selectedTransactions;
 };
 
-const removeTransactionsFromPool = (minedTransactions) => {
+const removeTransactionsFromPool = async (minedTransactions) => {
 
     console.log('minedTransactions:', minedTransactions);
+
+    // TODO make await
     minedTransactions.forEach(transaction => {
 
-        transactionPool.delete(transaction[0]);
+        removeTransactionFromDB(transaction.txID);
         websockets[0].send(JSON.stringify({type: 'deleteTransaction', data: transaction[0]}));
     });
 
 };
+
 
 export {selectTransactionsToMine, removeTransactionsFromPool};
