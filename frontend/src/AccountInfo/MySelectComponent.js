@@ -1,8 +1,5 @@
 import React from 'react';
 
-
-import { Grid, Row, Col } from 'react-flexbox-grid';
-
 import Select from 'material-ui/Select';
 import { InputLabel } from 'material-ui/Input';
 import { MenuItem } from 'material-ui/Menu';
