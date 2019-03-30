@@ -7,9 +7,11 @@ const {getTransactionsSortedByFee} = require('./transactions/transactions');
 const {sendDatabaseState} = require('./sendDatabaseState');
 const {loadBlockchainMetadata} = require('./blockchain');
 const {websockets} = require('./websockets');
-
+const {initializeMongoClient} = require('./data/db');
 
 const init = async () => {
+
+    await initializeMongoClient();
 
     await loadBlockchainMetadata();
     

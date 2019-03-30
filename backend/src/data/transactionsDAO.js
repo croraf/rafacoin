@@ -1,53 +1,26 @@
-var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/rafacoinDB";
+const {getConnection} = require('./db');
 
-const addTransactionToDB = (txID, signedTransaction) => {
 
-    MongoClient.connect(url, (err, db) => {
-        if (err) throw err;
-        const insertData = { txID: txID, signedTransaction: signedTransaction };
+const addTransactionToDB = async (txID, signedTransaction) => {
 
-        db.collection("transactions").insertOne(insertData, (err, res) => {
-          if (err) throw err;
-          console.log("Transaction added to transactions database.");
-          db.close();
-        });
-      }); 
+    const insertData = { txID: txID, signedTransaction: signedTransaction };
+
+    await getConnection().collection("transactions").insertOne(insertData);
+    console.log("Transaction added to transactions database.");
 }
 
-const getTransactionsFromDB = () => {
+const getTransactionsFromDB = async () => {
 
-    return new Promise((resolve, reject) => {
-
-        MongoClient.connect(url, (err, db) => {
-            if (err) throw err;
-    
-            db.collection("transactions").find({}).toArray((err, res) => {
-                if (err) throw err;
-                db.close();
-                console.log('found:', res);
-                resolve(res);
-            });
-        }); 
-    });
+    return await getConnection().collection("transactions").find({}).toArray();
 }
 
-const removeTransactionFromDB = (txID) => {
+const removeTransactionFromDB = async (txID) => {
 
-    return new Promise((resolve, reject) => {
-        
-        MongoClient.connect(url, (err, db) => {
-            if (err) throw err;
-    
-            db.collection("transactions").deleteOne({txID: txID}, (err, res) => {
-                if (err) throw err;
-                db.close();
-                console.log('found:', res.result);
-                resolve(res);
-            });
-        }); 
-    });
+    return await getConnection().collection("transactions").deleteOne({txID: txID}).result;
 }
 
+const clearTransactions = async () => {
+    return await getConnection().collection("transactions").drop();
+}
 
-module.exports = {addTransactionToDB, getTransactionsFromDB, removeTransactionFromDB};
+module.exports = {addTransactionToDB, getTransactionsFromDB, removeTransactionFromDB, clearTransactions};

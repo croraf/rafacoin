@@ -1,35 +1,15 @@
-var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/rafacoinDB";
+const {getConnection} = require('./db');
 
-const insertBlockInDB = (hash, block) => {
+const insertBlockInDB = async (hash, block) => {
 
-    MongoClient.connect(url, (err, db) => {
-        if (err) throw err;
-        const insertData = { hash: hash, block: block };
-        db.collection("blockchain").insertOne(insertData, (err, res) => {
-          if (err) throw err;
-          console.log("Block added to blockchain database.");
-          db.close();
-        });
-      }); 
+  const insertData = { hash: hash, block: block };
+  await getConnection().collection("blockchain").insertOne(insertData);
+  console.log("Block added to blockchain database.");
 }
 
-const getBlockFromDB = (hash) => {
+const getBlockFromDB = async (hash) => {
 
-    return new Promise((resolve, reject) => {
-
-        MongoClient.connect(url, (err, db) => {
-            if (err) throw err;
-    
-            db.collection("blockchain").findOne({hash: hash}, (err, res) => {
-              if (err) throw err;
-              db.close();
-              console.log('found:', res);
-              resolve(res);
-            });
-        }); 
-    });
-    
+  return await getConnection().collection("blockchain").findOne({hash: hash});
 }
 
 

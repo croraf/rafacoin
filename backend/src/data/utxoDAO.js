@@ -1,70 +1,26 @@
-var MongoClient = require('mongodb').MongoClient;
-var ObjectID = require('mongodb').ObjectID;
-var url = "mongodb://localhost:27017/rafacoinDB";
+const {getConnection} = require('./db');
+const ObjectID = require('mongodb').ObjectID;
 
-const addUTxO = (UTxO) => {
+const addUTxO = async (UTxO) => {
 
-    MongoClient.connect(url, (err, db) => {
-        if (err) throw err;
-        db.collection("UTxO").insertOne(UTxO, (err, res) => {
-          if (err) throw err;
-          console.log("UTxO added to UTxO collections.");
-          db.close();
-        });
-      }); 
+    await getConnection().collection("UTxO").insertOne(UTxO);
+    console.log("UTxO added to UTxO collections.");
 }
 
-const deleteUTxO = (txID, outputIndex) => {
+const deleteUTxO = async (txID, outputIndex) => {
 
-    return new Promise((resolve, reject) => {
-
-        MongoClient.connect(url, (err, db) => {
-            if (err) throw err;
-    
-            db.collection("UTxO").deleteOne({txID: txID, outputIndex: outputIndex}, (err, res) => {
-              if (err) throw err;
-              db.close();
-              console.log('found:', res.result);
-              resolve(res);
-            });
-        }); 
-    });
-    
+    return await getConnection().collection("UTxO").deleteOne({txID: txID, outputIndex: outputIndex}).result;
 }
 
-const getUTxO = (_id) => {
-    
-    return new Promise((resolve, reject) => {
+const getUTxO = async (_id) => {
 
-        MongoClient.connect(url, (err, db) => {
-            if (err) reject(err);
-            else {
-                db.collection("UTxO").findOne({'_id': new ObjectID(_id)}, (err, result) => {
-                    resolve(result);
-                });
-            }
-
-            db.close();
-        }); 
-    });
+    return await getConnection().collection("UTxO").findOne({'_id': new ObjectID(_id)});
 }
 
-const getAllUTxO = () => {
-    
-    return new Promise((resolve, reject) => {
-
-        MongoClient.connect(url, (err, db) => {
-            if (err) reject(err);
-            else {
-                db.collection("UTxO").find({}).toArray((err, result) => {
-                    console.log('All UTXO:', result);
-                    resolve(result);
-                });
-            }
-
-            db.close();
-        }); 
-    });
+const getAllUTxO = async () => {
+    const result = await getConnection().collection("UTxO").find({}).toArray();
+    console.log('All UTXO:', result);
+    return result;
 }
 
 module.exports = {addUTxO, deleteUTxO, getUTxO, getAllUTxO};

@@ -1,81 +1,70 @@
-var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/rafacoinDB";
+const MongoClient = require('mongodb').MongoClient;
+const url = 'mongodb://localhost:27017';
 
-MongoClient.connect(url, (err, db) => {
-    if (err) throw err;
+const init = async () => {
+    const client = new MongoClient(url);
 
-    db.collection("blockchain").remove({}, (err, res) => {
-        if (err) throw err;
-        console.log("Blockchain collection cleared!");
+    await client.connect();
+    console.log('Mongo client connected');
+    const db = client.db('rafacoinDB');
 
-        var genesisBlock = {
-            hash: 'c00ee95ff114855f2cae409ebb44c8f812b2505e144ccb076feddfdcc08053e3',
-            block : {
-                previousHash: undefined,
-                transactions: [],
-                target: '0000100ff114855f2cae409ebb44c8f812b2505e144ccb076feddfdcc08053e3',
-                noonce: 0
-            }
-        };
-    
-        db.collection("blockchain").insertOne(genesisBlock, (err, res) => {
-            if (err) throw err;
-            console.log("Genesis block inserted!");
+    try {
+        await db.collection("blockchain").drop();
+        console.log("blockchain collection dropped");
+    } catch (err){
+        console.log("cannot drop blockchain collection:", err);
+    }
 
-            db.close();
-        });
-    });
-});
-
-
-MongoClient.connect(url, (err, db) => {
-    if (err) throw err;
-
-    db.collection("meta").remove({}, (err, res) => {
-        if (err) throw err;
-        console.log("Meta collection cleared!");
-
-        const metaDocument = {
-            type: 'blockchainMeta',
-            blockchainTipHash: 'c00ee95ff114855f2cae409ebb44c8f812b2505e144ccb076feddfdcc08053e3',
-            blockchainHeight: 0,
-            target: '0000100ff114855f2cae409ebb44c8f812b2505e144ccb076feddfdcc08053e3'
+    const genesisBlock = {
+        hash: 'c00ee95ff114855f2cae409ebb44c8f812b2505e144ccb076feddfdcc08053e3',
+        block : {
+            previousHash: undefined,
+            transactions: [],
+            target: '0000100ff114855f2cae409ebb44c8f812b2505e144ccb076feddfdcc08053e3',
+            noonce: 0
         }
+    };
+    await db.collection("blockchain").insertOne(genesisBlock);
+    console.log("Genesis block inserted into blockchain collection!");
+
+    try {
+        await db.collection("transactions").drop();
+        console.log("transactions collection dropped");
+    } catch (err){
+        console.log("cannot drop transactions collection:", err);
+    }
+
+    try {
+        await db.collection("meta").drop();
+        console.log("meta collection dropped");
+    } catch (err){
+        console.log("cannot drop meta collection:", err);
+    }
+    const metaDocument = {
+        type: 'blockchainMeta',
+        blockchainTipHash: 'c00ee95ff114855f2cae409ebb44c8f812b2505e144ccb076feddfdcc08053e3',
+        blockchainHeight: 0,
+        target: '0000100ff114855f2cae409ebb44c8f812b2505e144ccb076feddfdcc08053e3'
+    }
+    await db.collection("meta").insertOne(metaDocument);
+    console.log("Meta info inserted!");
+
+    try {
+        await db.collection("UTxO").drop();
+        console.log("UTxO collection dropped");
+    } catch (err){
+        console.log("cannot drop UTxO collection:", err);
+    }
+
+    try {
+        await client.close();
+        console.log('mongo client closed');
+    } catch (err){
+        console.log("cannot close mongo client:", err);
+    }
     
-        db.collection("meta").insertOne(metaDocument, (err, res) => {
-            if (err) throw err;
-            console.log("Meta info inserted!");
-            
-            db.close();
-        });
+};
 
-
-    });
-}); 
-
-MongoClient.connect(url, (err, db) => {
-    if (err) throw err;
-
-    db.collection("UTxO").remove({}, (err, res) => {
-        if (err) throw err;
-        console.log("UTxO collection cleared!");
-
-        /* const metaDocument = {
-            type: 'blockchainMeta',
-            blockchainTipHash: 'c00ee95ff114855f2cae409ebb44c8f812b2505e144ccb076feddfdcc08053e3',
-            blockchainHeight: 0,
-            target: '0000100ff114855f2cae409ebb44c8f812b2505e144ccb076feddfdcc08053e3'
-        }
-    
-        db.collection("meta").insertOne(metaDocument, (err, res) => {
-            if (err) throw err;
-            console.log("Meta info inserted!");
-            
-            db.close();
-        }); */
-
-        db.close();
-    });
-}); 
+init();
 
 
