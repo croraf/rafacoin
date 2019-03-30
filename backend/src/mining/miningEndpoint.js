@@ -16,7 +16,7 @@ const miningEndpoint = () => {
 
         startMining();
     }
-}
+};
 
 const setMiningFinished = () => {
     
@@ -24,7 +24,7 @@ const setMiningFinished = () => {
 
     websockets[0].send(JSON.stringify({type: 'miningInfo', data: 'miningFinished'}));
     log1('Mining finished', '');
-}
+};
 
 module.exports = {miningEndpoint, setMiningFinished};
 
@@ -46,4 +46,5 @@ module.exports = {miningEndpoint, setMiningFinished};
     }
     else {setTimeout(() => {miningLoop(index-1);}, 10);}
 };
-    */ 
+*/ 
+

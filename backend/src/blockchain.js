@@ -60,7 +60,7 @@ const getBlockchainArray = async () => {
 
     //console.log('blockchainArray:', blockchainArray);
     return blockchainArray;
-}
+};
 
 
 const loadBlockchainMetadata = async () => {

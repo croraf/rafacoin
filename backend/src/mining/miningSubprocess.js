@@ -50,3 +50,4 @@ process.on('message', (blockHeaderTemplate) => {
 
     process.send({type: 'calculatedNonce', data: foundNonce});
 });
+

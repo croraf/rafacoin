@@ -62,7 +62,7 @@ const constructStoreAndSendMinedBlock = (calculatedNonce, nextBlockHeaderTemplat
     } catch (error) {
         console.log('ERROR, validation failed:',error.reason);
     }
-}
+};
 
 const startMining = async () => {
 

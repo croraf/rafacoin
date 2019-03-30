@@ -20,7 +20,7 @@ const substituteInputsFromIDs = async ( input_ids ) => {
     console.log('...........', substitutedInputs);
 
     return substitutedInputs;
-}
+};
 
 
 const addTransactionsToUTxO = (transactions, blockHash) => {

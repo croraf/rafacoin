@@ -1,5 +1,5 @@
 const MongoClient = require('mongodb').MongoClient;
-const url = "mongodb://localhost:27017";
+const url = 'mongodb://localhost:27017';
 
 let db;
 
@@ -12,6 +12,6 @@ const initializeMongoClient = async () => {
 
 const getConnection = () => {
     return db;
-}
+};
 
 module.exports = {initializeMongoClient, getConnection};

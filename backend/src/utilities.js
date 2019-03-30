@@ -7,7 +7,7 @@ const log1 = (description, data) => {
         '\n',
         data,
         '\n--------------------------'
-    )
+    );
 };
 
 module.exports ={log1};
