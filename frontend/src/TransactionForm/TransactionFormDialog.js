@@ -15,7 +15,7 @@ import { Grid, Row, Col } from 'react-flexbox-grid';
 
 import RemoteSubmitButton from './RemoteSubmitButton';
 
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 
 const styles = {
     paper: {
@@ -63,7 +63,7 @@ class TransactionFormDialog extends React.Component {
                 </Dialog>
                 
                 <Col xs={3}>
-                    <Button raised={true} style={{width: '100%'}} color='accent' onClick={this.handleOpen}>
+                    <Button variant='contained' style={{width: '100%'}} color='secondary' onClick={this.handleOpen}>
                         Make transaction
                     </Button>
                 </Col>

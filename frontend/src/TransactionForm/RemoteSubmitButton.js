@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 const RemoteSubmitButton = ({ dispatch, handleClose }) => (
   
     <Button 
-        raised={true}
+        variant='contained'
         color='primary'
         onClick={() => {
             console.log('submit'); 

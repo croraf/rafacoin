@@ -9,7 +9,15 @@ import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import {store} from './redux/store';
 
 
-const theme = createMuiTheme();
+const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true,
+  },
+});
+
+import { install } from '@material-ui/styles';
+
+install();
 
 ReactDOM.render(
   <Provider store={store}>

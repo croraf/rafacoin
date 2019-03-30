@@ -16,8 +16,8 @@ class CreateAddressButtonComponent extends React.Component {
     render() {
             return (
                 <Button 
-                    color='accent'
-                    raised={true}
+                    color='secondary'
+                    variant='contained'
                     onClick={()=>{this.props.dispatch(createNewAddress());}}>
                     Create new address
                 </Button>

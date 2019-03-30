@@ -37,7 +37,7 @@ const renderOutputMembers = ({fields}) => {
             })}
             
             <Row>
-                <Button raised={true} style={{margin: 'auto', marginTop: '10px'}} onClick={()=>{fields.push({})}}>
+                <Button variant='contained' style={{margin: 'auto', marginTop: '10px'}} onClick={()=>{fields.push({})}}>
                     + Add output
                 </Button>
             </Row>
@@ -69,7 +69,7 @@ const renderInputMembers = ({fields}) => {
             })}
             
             <Row>
-                <Button raised={true} style={{margin: 'auto'}} onClick={()=>{fields.push({})}}>
+                <Button variant='contained' style={{margin: 'auto'}} onClick={()=>{fields.push({})}}>
                     + Add input
                 </Button>
             </Row>

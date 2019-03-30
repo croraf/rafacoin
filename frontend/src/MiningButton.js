@@ -8,7 +8,7 @@ class MiningButtonComponent extends React.Component {
     render() {
             return (
                 <Button 
-                    raised={true}
+                    variant='contained'
                     style={{width: '100%'}}
                     color='primary'
                     onClick={()=>{sendMessage({type: 'mine'});}}
