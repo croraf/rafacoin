@@ -2,7 +2,7 @@
 const {signTransaction} = require('./transactions');
 const {addTransactionToDB} = require('../data/transactionsDAO');
 const {makeHash} = require('../hashing');
-const {websockets} = require('../websockets');
+const websockets = require('../websockets/outbound');
 const {substituteInputsFromIDs} = require('./unspentTransactionOutputs');
 
 
@@ -27,7 +27,7 @@ const createTransaction = async (transactionPayload) => {
         signedTransaction
     };
 
-    websockets[0].send(JSON.stringify({type: 'newTransaction', data: transaction}));
+    websockets.broadcast(JSON.stringify({type: 'newTransaction', data: transaction}));
     
 
     

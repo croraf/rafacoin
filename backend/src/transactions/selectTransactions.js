@@ -1,6 +1,6 @@
 
 const {log1} = require('../utilities');
-const {websockets} = require('../websockets');
+const websockets = require('../websockets/outbound');
 
 const {getTransactionsFromDB, removeTransactionFromDB} = require('../data/transactionsDAO');
 
@@ -45,7 +45,7 @@ const removeTransactionsFromPool = async (minedTransactions) => {
     minedTransactions.forEach(transaction => {
 
         removeTransactionFromDB(transaction.txID);
-        websockets[0].send(JSON.stringify({type: 'deleteTransaction', data: transaction[0]}));
+        websockets.broadcast(JSON.stringify({type: 'deleteTransaction', data: transaction[0]}));
     });
 
 };

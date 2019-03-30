@@ -2,7 +2,7 @@
 
 const {startMining} = require('./miningWrapper');
 const { log1 } = require('../utilities');
-const { websockets } = require('../websockets');
+const websockets = require('../websockets/outbound');
 
 let mining = false;
 
@@ -12,7 +12,7 @@ const miningEndpoint = () => {
 
         mining = true;
         log1('Starting mining', '');
-        websockets[0].send(JSON.stringify({type: 'miningInfo', data: 'miningStarted'}));
+        websockets.broadcast(JSON.stringify({type: 'miningInfo', data: 'miningStarted'}));
 
         startMining();
     }
@@ -22,7 +22,7 @@ const setMiningFinished = () => {
     
     mining = false;
 
-    websockets[0].send(JSON.stringify({type: 'miningInfo', data: 'miningFinished'}));
+    websockets.broadcast(JSON.stringify({type: 'miningInfo', data: 'miningFinished'}));
     log1('Mining finished', '');
 };
 

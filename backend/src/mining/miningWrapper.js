@@ -3,7 +3,7 @@ const {addToBlockchain, blockchainMetadata} = require('../blockchain');
 const {makeHash} = require('../hashing');
 const {log1} = require('../utilities');
 
-const {websockets} = require('../websockets');
+const websockets = require('../websockets/outbound');
 
 const {removeTransactionsFromPool} = require('../transactions/selectTransactions');
 const {addTransactionsToUTxO, removeOldUTxO} = require('../transactions/unspentTransactionOutputs');
@@ -55,7 +55,7 @@ const constructStoreAndSendMinedBlock = (calculatedNonce, nextBlockHeaderTemplat
     try {
         addToBlockchain(minedBlock, minedBlockHeaderHash);
 
-        websockets[0].send(JSON.stringify({
+        websockets.broadcast(JSON.stringify({
             type: 'newBlock', 
             data: [minedBlockHeaderHash, minedBlock]}
         ));
