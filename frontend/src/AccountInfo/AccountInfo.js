@@ -12,23 +12,19 @@ class AccountInfoFormComponent extends React.Component {
     render () {
 
         return (
-            <Grid item xs={12}>
-                <form>
-                    <Grid item>
-                        <Grid item xs={4}>
-                            <CreateAddressButton />
-                        </Grid>
+            <form>
+                <Grid item xs={12}>
+                    <CreateAddressButton />
+                </Grid>
+                <Grid item xs={12}>
+                    <Grid item xs={6}>
+                        <Field name='address' component={MySelectContainer} label="Address"/>
                     </Grid>
-                    <Grid item>
-                        <Grid item xs={6}>
-                            <Field name='address' component={MySelectContainer} label="Address"/>
-                        </Grid>
-                        <Grid item xs={6}>
-                            <Field name='privateKey' component={MyTextInputContainer} label="Private key"/>
-                        </Grid>
+                    <Grid item xs={6}>
+                        <Field name='privateKey' component={MyTextInputContainer} label="Private key"/>
                     </Grid>
-                </form>
-            </Grid>
+                </Grid>
+            </form>
         )
     }
 }

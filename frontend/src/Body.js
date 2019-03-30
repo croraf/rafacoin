@@ -17,36 +17,37 @@ import {AccountInfo} from './AccountInfo/AccountInfo';
 const Body = () => {
 
     return (
-        <Grid container style={{width: '95%'}}>
+        <Grid container style={{width: '95%', margin: 'auto'}}>
 
-            <Grid item style={{marginBottom: '20px', marginTop: '10px'}}>
+            <Grid item xs={9} style={{marginBottom: '20px', marginTop: '10px'}}>
                 <AccountInfo />
             </Grid>
 
-            <Grid item style={{marginBottom: '10px'}}>
-                <Grid item xs={3}>
+            <Grid container xs={3} style={{marginBottom: '10px'}}>
+                <Grid item xs={12}>
                     <MiningButton />
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={12}>
                     <Button variant='contained' style={{width: '100%'}} color='primary' onClick={()=>{sendMessage({type: 'fetch_database_state'});}}>
                         Fetch database state
                     </Button>
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={12}>
                     <Button variant='contained' style={{width: '100%'}} color='primary' onClick={()=>{sendMessage({type: 'sync_unconfirmed_transactions'});}}>
                         Fetch Tx pool
                     </Button>
                 </Grid>
-                {/* <Col xs={3}>
+                {/* <Grid item xs={12}>
                     <Button variant='contained' style={{width: '100%'}} color='primary' onClick={()=>{sendMessage({type: 'fetch_UTxO'});}}>
                         Fetch UTxO
                     </Button>
-                </Col> */}
+                </Grid> */}
+                <Grid item xs={12}>
+                    <TransactionFormDialog />
+                </Grid>
             </Grid>
                 
-            <TransactionFormDialog />
-
-            <Grid>
+            <Grid container spacing={32}>
                 <Grid item xs={6}>
                     <TransactionsContainer />
                     <UTxOContainer />

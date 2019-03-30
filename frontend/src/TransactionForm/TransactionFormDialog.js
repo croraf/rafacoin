@@ -35,35 +35,28 @@ class TransactionFormDialog extends React.Component {
     render () {
 
         return (
-            <Grid style={{marginBottom: '10px'}}>
-
+            <>
                 <Dialog
-                        open={this.state.open}
-                        onRequestClose={this.handleClose}
-                        fullWidth={true}
-                        classes={{paper: this.props.classes.paper}}
-                        >
-                        
+                    open={this.state.open}
+                    onRequestClose={this.handleClose}
+                    fullWidth={true}
+                    classes={{paper: this.props.classes.paper}}
+                >
+                    <DialogTitle>Make transaction</DialogTitle>
 
-                        <DialogTitle>Make transaction</DialogTitle>
+                    <DialogContent>
+                        <TransactionForm/>
+                    </DialogContent>
 
-                        <DialogContent>
-                            <TransactionForm/>
-                        </DialogContent>
-
-                        <DialogActions>
-                            <RemoteSubmitButton handleClose={this.handleClose}/>
-                        </DialogActions>
-                        
-                        
+                    <DialogActions>
+                        <RemoteSubmitButton handleClose={this.handleClose}/>
+                    </DialogActions>
                 </Dialog>
                 
-                <Grid xs={3}>
-                    <Button variant='contained' style={{width: '100%'}} color='secondary' onClick={this.handleOpen}>
-                        Make transaction
-                    </Button>
-                </Grid>
-            </Grid>
+                <Button variant='contained' style={{width: '100%'}} color='secondary' onClick={this.handleOpen}>
+                    Make transaction
+                </Button>
+            </>
         );
     }
     
