@@ -37,7 +37,7 @@ class TransactionFormDialog extends React.Component {
             <>
                 <Dialog
                     open={this.state.open}
-                    onRequestClose={this.handleClose}
+                    onClose={this.handleClose}
                     fullWidth={true}
                     classes={{paper: this.props.classes.paper}}
                 >
