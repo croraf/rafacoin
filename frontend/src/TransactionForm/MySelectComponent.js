@@ -6,7 +6,7 @@ import { Grid, Row, Col } from 'react-flexbox-grid';
 import Select from '@material-ui/core/Select';
 import { InputLabel } from '@material-ui/core/Input';
 import { MenuItem } from '@material-ui/core/Menu';
-import { FormControl } from '@material-ui/core/Form';
+import FormControl from '@material-ui/core/FormControl';
 
 import {change} from 'redux-form';
 
