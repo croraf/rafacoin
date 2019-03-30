@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {sendMessage, closeWebsocket} from './webSocket';
+import {sendMessage, closeWebsocket} from '../webSocket';
 
 import {BlockchainContainer} from './Blockchain/BlockchainContainer';
 import {TransactionsContainer} from './TransactionsPool/TransactionsContainer';
@@ -23,7 +23,7 @@ const Body = () => {
                 <AccountInfo />
             </Grid>
 
-            <Grid container xs={3} style={{marginBottom: '10px'}}>
+            <Grid item xs={3} style={{marginBottom: '10px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
                 <Grid item xs={12}>
                     <MiningButton />
                 </Grid>

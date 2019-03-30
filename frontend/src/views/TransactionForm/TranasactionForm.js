@@ -97,7 +97,7 @@ class TransactionFormComponent extends React.Component {
 }
 
 
-import {sendMessage} from '../webSocket';
+import {sendMessage} from '../../webSocket';
 
 const submit = (values) => {
     console.log('vrijednosti', values);

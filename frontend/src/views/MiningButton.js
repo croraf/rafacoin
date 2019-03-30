@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 
-import {sendMessage} from './webSocket';
+import {sendMessage} from '../webSocket';
 
 class MiningButtonComponent extends React.Component {
 
