@@ -3,10 +3,10 @@ import React from 'react';
 
 import { Grid, Row, Col } from 'react-flexbox-grid';
 
-import Select from 'material-ui/Select';
-import { InputLabel } from 'material-ui/Input';
-import { MenuItem } from 'material-ui/Menu';
-import { FormControl } from 'material-ui/Form';
+import Select from '@material-ui/core/Select';
+import { InputLabel } from '@material-ui/core/Input';
+import { MenuItem } from '@material-ui/core/Menu';
+import { FormControl } from '@material-ui/core/Form';
 
 import {change} from 'redux-form';
 

@@ -8,7 +8,7 @@ import TransactionFormDialog from './TransactionForm/TransactionFormDialog';
 import {UTxOContainer} from './UTxO/UTxOContainer';
 
 import { Grid, Row, Col } from 'react-flexbox-grid';
-import Button from 'material-ui/Button';
+import Button from '@material-ui/core/Button';
 
 import {MiningButton} from './MiningButton';
 

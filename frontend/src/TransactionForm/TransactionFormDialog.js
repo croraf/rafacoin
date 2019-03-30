@@ -5,17 +5,17 @@ import Dialog, {
     DialogContent,
     DialogContentText,
     DialogTitle,
-  } from 'material-ui/Dialog';
+  } from '@material-ui/core/Dialog';
 
 import {TransactionForm} from './TranasactionForm';
 
 
-import Button from 'material-ui/Button';
+import Button from '@material-ui/core/Button';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 
 import RemoteSubmitButton from './RemoteSubmitButton';
 
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
     paper: {

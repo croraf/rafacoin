@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { submit } from 'redux-form';
 
-import Button from 'material-ui/Button';
+import Button from '@material-ui/core/Button';
 
 const RemoteSubmitButton = ({ dispatch, handleClose }) => (
   

@@ -5,7 +5,7 @@ import {reduxForm, Field} from 'redux-form';
 import {Col, Row} from 'react-flexbox-grid';
 import { MyTextInputContainer } from './MyTextInput';
 import { MySelectContainer } from './MySelectComponent';
-import Button from 'material-ui/Button';
+import Button from '@material-ui/core/Button';
 import { CreateAddressButton } from './CreateAddressButton';
 
 class AccountInfoFormComponent extends React.Component {

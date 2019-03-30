@@ -8,9 +8,9 @@ import {MyTextInput} from './MyTextInput';
 import {MySelectUnspentOutputs} from './MySelectInputTx';
 import {SelectedOutputInfo} from './SelectedOutputInfo';
 
-import Button from 'material-ui/Button';
-import IconButton from 'material-ui/IconButton';
-import DeleteForever from 'material-ui-icons/DeleteForever';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteForever from '@material-ui/icons/DeleteForever';
 
 
 const renderOutputMembers = ({fields}) => {
