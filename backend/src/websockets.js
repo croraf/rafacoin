@@ -1,4 +1,4 @@
 
 const websockets = [];
 
-export {websockets};
+module.exports = {websockets};

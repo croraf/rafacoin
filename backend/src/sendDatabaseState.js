@@ -1,9 +1,8 @@
 
-import {getAllUTxO} from './data/utxoDAO';
+const {getAllUTxO} = require('./data/utxoDAO');
+const {getBlockchainArray} = require('./blockchain');
+const {getTransactionsFromDB} = require('./data/transactionsDAO');
 
-import {getBlockchainArray} from './blockchain';
-
-import {getTransactionsFromDB} from './data/transactionsDAO';
 
 const sendDatabaseState = async (ws) => {
 
@@ -25,7 +24,4 @@ const sendDatabaseState = async (ws) => {
     ws.send(JSON.stringify({type: 'transactionsPool', data: transactionsPool}));
 };
 
-
-
-
-export {sendDatabaseState};
+module.exports = {sendDatabaseState};

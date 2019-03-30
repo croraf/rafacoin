@@ -1,11 +1,11 @@
-import {miningEndpoint} from './mining/miningEndpoint';
-import {websockets} from './websockets';
-import {createTransaction} from './transactions/createTransaction';
-import {getTransactionsSortedByFee} from './transactions/transactions';
+const {websockets} = require('./websockets');
 
-import {sendDatabaseState} from './sendDatabaseState';
+const {miningEndpoint} = require('./mining/miningEndpoint');
+const {createTransaction} = require('./transactions/createTransaction');
+const {getTransactionsSortedByFee} = require('./transactions/transactions');
+const {sendDatabaseState} = require('./sendDatabaseState');
+const {loadBlockchainMetadata} = require('./blockchain');
 
-import {loadBlockchainMetadata} from './blockchain';
 
 const WebSocket = require('ws');
 

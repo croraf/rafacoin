@@ -10,4 +10,4 @@ const log1 = (description, data) => {
     )
 };
 
-export{log1};
+module.exports ={log1};

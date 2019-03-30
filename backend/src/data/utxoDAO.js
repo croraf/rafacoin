@@ -67,4 +67,4 @@ const getAllUTxO = () => {
     });
 }
 
-export {addUTxO, deleteUTxO, getUTxO, getAllUTxO};
+module.exports = {addUTxO, deleteUTxO, getUTxO, getAllUTxO};

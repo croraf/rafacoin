@@ -1,6 +1,6 @@
 
-import {generateKeys, signData, verifySignature} from './signing';
-import {transactionPool} from './transactionsPool';
+const {generateKeys, signData, verifySignature} = require('./signing');
+
 
 const keys = generateKeys();
 
@@ -31,5 +31,5 @@ const verifyTransaction = (signedTransaction) => {
 };
 
 
-export {signTransaction, verifyTransaction};
+module.exports = {signTransaction, verifyTransaction};
 

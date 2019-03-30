@@ -1,8 +1,8 @@
 
 
-import {startMining} from './miningWrapper';
-import { log1 } from '../utilities';
-import { websockets } from '../websockets';
+const {startMining} = require('./miningWrapper');
+const { log1 } = require('../utilities');
+const { websockets } = require('../websockets');
 
 let mining = false;
 
@@ -26,7 +26,7 @@ const setMiningFinished = () => {
     log1('Mining finished', '');
 }
 
-export {miningEndpoint, setMiningFinished};
+module.exports = {miningEndpoint, setMiningFinished};
 
 
 

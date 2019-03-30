@@ -1,6 +1,6 @@
-import keypair from 'keypair';
+const keypair = require('keypair');
 
-import crypto from 'crypto';
+const crypto = require('crypto');
 
 const generateKeys = () => {
     return keypair();
@@ -33,4 +33,4 @@ const verifySignature = (data, signature, publicKey) => {
 };
 
 
-export {generateKeys, signData, verifySignature};
+module.exports = {generateKeys, signData, verifySignature};

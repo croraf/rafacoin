@@ -1,20 +1,19 @@
 
-import {blockchain, addToBlockchain, blockchainMetadata} from '../blockchain';
-import {makeHash} from '../hashing';
-import {log1} from '../utilities';
+const {addToBlockchain, blockchainMetadata} = require('../blockchain');
+const {makeHash} = require('../hashing');
+const {log1} = require('../utilities');
 
-import {websockets} from '../websockets';
+const {websockets} = require('../websockets');
 
-import {removeTransactionsFromPool} from '../transactions/selectTransactions';
-import {addTransactionsToUTxO, removeOldUTxO} from '../transactions/unspentTransactionOutputs';
-import {selectTransactionsToMine} from '../transactions/selectTransactions';
+const {removeTransactionsFromPool} = require('../transactions/selectTransactions');
+const {addTransactionsToUTxO, removeOldUTxO} = require('../transactions/unspentTransactionOutputs');
+const {selectTransactionsToMine} = require('../transactions/selectTransactions');
 
 
-import {setMiningFinished} from './miningEndpoint';
+const {setMiningFinished} = require('./miningEndpoint');
 
-import {fork} from 'child_process';
+const {fork} = require('child_process');
 
-import {insertBlockInDB} from '../data/blockchainDAO';
 
 const generateCoinbase = () => {
     
@@ -120,7 +119,7 @@ const startMining = async () => {
 };
 
 
-export {startMining};
+module.exports = {startMining};
 
 
 

@@ -7,5 +7,5 @@ const makeHash = (data) => {
     return hash.digest('hex');
 };
 
-export {makeHash};
+module.exports = {makeHash};
 

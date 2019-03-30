@@ -1,15 +1,9 @@
 
-import {signTransaction, getTransactionsSortedByFee} from './transactions';
-import {transactionPool} from './transactionsPool';
-
-import {addTransactionToDB} from '../data/transactionsDAO';
-
-import {log1} from '../utilities';
-import {makeHash} from '../hashing';
-
-import {websockets} from '../websockets';
-
-import {substituteInputsFromIDs} from './unspentTransactionOutputs';
+const {signTransaction} = require('./transactions');
+const {addTransactionToDB} = require('../data/transactionsDAO');
+const {makeHash} = require('../hashing');
+const {websockets} = require('../websockets');
+const {substituteInputsFromIDs} = require('./unspentTransactionOutputs');
 
 
 const createTransaction = async (transactionPayload) => {
@@ -40,6 +34,6 @@ const createTransaction = async (transactionPayload) => {
 
 };
 
-export {createTransaction};
+module.exports = {createTransaction};
 
 

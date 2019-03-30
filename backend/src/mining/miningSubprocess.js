@@ -1,6 +1,4 @@
-import { setTimeout } from 'timers';
-
-import {makeHash} from '../hashing';
+const {makeHash} = require('../hashing');
 
 
 const verifyMinedTarget = (hash, targetHash) => {

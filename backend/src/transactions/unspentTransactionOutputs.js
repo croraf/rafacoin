@@ -1,9 +1,8 @@
 
+const {addUTxO, deleteUTxO, getUTxO} = require('../data/utxoDAO');
+
+
 const unspentTx = new Map();
-
-
-import {addUTxO, deleteUTxO, getUTxO} from '../data/utxoDAO';
-
 
 const substituteInputsFromIDs = async ( input_ids ) => {
 
@@ -54,5 +53,5 @@ const removeOldUTxO = (minedTransactions) => {
     });
 };
 
-export {unspentTx, addTransactionsToUTxO, removeOldUTxO, substituteInputsFromIDs};
+module.exports = {unspentTx, addTransactionsToUTxO, removeOldUTxO, substituteInputsFromIDs};
 

@@ -1,9 +1,8 @@
 
-import {getMetadata, updateBlockchainMetadata} from './data/metaDAO';
-import {getBlockFromDB, insertBlockInDB} from './data/blockchainDAO';
+const {getMetadata, updateBlockchainMetadata} = require('./data/metaDAO');
+const {getBlockFromDB, insertBlockInDB} = require('./data/blockchainDAO');
 
-import {makeHash} from './hashing';
-import {log1} from './utilities';
+const {log1} = require('./utilities');
 
 
 const blockchainMetadata = {
@@ -74,7 +73,7 @@ const loadBlockchainMetadata = async () => {
     blockchainMetadata.blockchainTipHash = blockchainMetadataLoaded.blockchainTipHash;
     blockchainMetadata.target = blockchainMetadataLoaded.target;
 
-    console.log('Metadata loaded from DB:\n', blockchainMetadata);
+    console.log('Metadata loaded from: ', blockchainMetadata);
 };
 
-export {addToBlockchain, blockchainMetadata, getBlockchainArray, loadBlockchainMetadata};
+module.exports = {addToBlockchain, blockchainMetadata, getBlockchainArray, loadBlockchainMetadata};

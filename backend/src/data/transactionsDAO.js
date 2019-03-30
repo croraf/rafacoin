@@ -50,4 +50,4 @@ const removeTransactionFromDB = (txID) => {
 }
 
 
-export {addTransactionToDB, getTransactionsFromDB, removeTransactionFromDB};
+module.exports = {addTransactionToDB, getTransactionsFromDB, removeTransactionFromDB};

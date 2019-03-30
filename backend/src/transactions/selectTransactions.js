@@ -1,8 +1,8 @@
 
-import {log1} from '../utilities';
-import {websockets} from '../websockets';
+const {log1} = require('../utilities');
+const {websockets} = require('../websockets');
 
-import {getTransactionsFromDB, removeTransactionFromDB} from '../data/transactionsDAO';
+const {getTransactionsFromDB, removeTransactionFromDB} = require('../data/transactionsDAO');
 
 
 const compareTransactionsByFee = (a, b) => {
@@ -51,4 +51,4 @@ const removeTransactionsFromPool = async (minedTransactions) => {
 };
 
 
-export {selectTransactionsToMine, removeTransactionsFromPool};
+module.exports = {selectTransactionsToMine, removeTransactionsFromPool};

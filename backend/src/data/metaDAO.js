@@ -51,4 +51,4 @@ const updateBlockchainMetadata = (blockchainTipHash, blockchainHeight) => {
     
 }
 
-export {getMetadata, updateBlockchainMetadata};
+module.exports = {getMetadata, updateBlockchainMetadata};

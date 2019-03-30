@@ -33,4 +33,4 @@ const getBlockFromDB = (hash) => {
 }
 
 
-export {insertBlockInDB, getBlockFromDB};
+module.exports = {insertBlockInDB, getBlockFromDB};

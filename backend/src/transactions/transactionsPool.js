@@ -1,6 +1,6 @@
 
 const transactionPool = new Map();
 
-export {transactionPool};
+module.exports = {transactionPool};
 
 
