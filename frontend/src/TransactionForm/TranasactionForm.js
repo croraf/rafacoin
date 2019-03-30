@@ -1,8 +1,6 @@
 import React from 'react';
 import { Field, reduxForm, FieldArray } from 'redux-form';
 
-import { Grid, Row, Col } from 'react-flexbox-grid';
-
 import {MyTextInput} from './MyTextInput';
 
 import {MySelectUnspentOutputs} from './MySelectInputTx';
@@ -12,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteForever from '@material-ui/icons/DeleteForever';
 
+import Grid from '@material-ui/core/Grid';
 
 const renderOutputMembers = ({fields}) => {
 
@@ -20,27 +19,27 @@ const renderOutputMembers = ({fields}) => {
             {fields.map((output, index) => {
 
                 return (
-                    <Row key={index}>
-                        <Col xs={8}>
+                    <Grid key={index}>
+                        <Grid xs={8}>
                             <Field name={`${output}.address`} component={MyTextInput} label={`Output ${index} address`}/>
-                        </Col>
-                        <Col xs={3}>
+                        </Grid>
+                        <Grid xs={3}>
                             <Field name={`${output}.amount`} component={MyTextInput} label={`Output ${index} amount`}/>
-                        </Col>
-                        <Col xs={1} style={{margin: 'auto'}}>
+                        </Grid>
+                        <Grid xs={1} style={{margin: 'auto'}}>
                             <IconButton onClick={() => fields.remove(index)}>
                                 <DeleteForever />
                             </IconButton>
-                        </Col>
-                    </Row>
+                        </Grid>
+                    </Grid>
                 )
             })}
             
-            <Row>
+            <Grid>
                 <Button variant='contained' style={{margin: 'auto', marginTop: '10px'}} onClick={()=>{fields.push({})}}>
                     + Add output
                 </Button>
-            </Row>
+            </Grid>
         </div>
     );
 }
@@ -53,26 +52,26 @@ const renderInputMembers = ({fields}) => {
 
                 return (
                     <div key={index}>
-                        <Row style={{marginTop: '10px', marginBottom: '5px'}}>
-                            <Col xs={11}>
+                        <Grid style={{marginTop: '10px', marginBottom: '5px'}}>
+                            <Grid xs={11}>
                                 <Field name={`${input}`} component={MySelectUnspentOutputs} index={index} label={`Input ${index} reference`}/>
-                            </Col>
-                            <Col xs={1} style={{margin: 'auto'}}>
+                            </Grid>
+                            <Grid xs={1} style={{margin: 'auto'}}>
                                 <IconButton onClick={() => fields.remove(index)}>
                                     <DeleteForever />
                                 </IconButton>
-                            </Col>
-                        </Row>
+                            </Grid>
+                        </Grid>
                         <SelectedOutputInfo index={index}/>
                     </div>
                 )
             })}
             
-            <Row>
+            <Grid>
                 <Button variant='contained' style={{margin: 'auto'}} onClick={()=>{fields.push({})}}>
                     + Add input
                 </Button>
-            </Row>
+            </Grid>
         </div>
     );
 }
@@ -89,9 +88,9 @@ class TransactionFormComponent extends React.Component {
 
                 <FieldArray name="outputs" component={renderOutputMembers} />
                 
-                <Col xs={4} xsOffset={4}>
+                <Grid xs={4} xsOffset={4}>
                     <Field name='fee' component={MyTextInput} label="Fee"/>
-                </Col>
+                </Grid>
             </form>
         )
     }

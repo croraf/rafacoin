@@ -1,8 +1,6 @@
 
 import React from 'react';
 
-import { Grid, Row, Col } from 'react-flexbox-grid';
-
 
 class SelectedOutputInfoComponent extends React.Component {
     render () {
@@ -13,19 +11,19 @@ class SelectedOutputInfoComponent extends React.Component {
         return (
             selectedUTxO ? 
                 (<div>
-                    <Row>
+                    <Grid>
                         Controlling address: { 
                             selectedUTxO.output.address
                         }
-                    </Row>
-                    <Row>
+                    </Grid>
+                    <Grid>
                         Amount: { 
                             selectedUTxO.output.amount
                         }
-                    </Row>
-                    <Row>
+                    </Grid>
+                    <Grid>
                         Optional: error, you do not controll this address :)
-                    </Row>
+                    </Grid>
                 </div>) : <div />
         );
     }

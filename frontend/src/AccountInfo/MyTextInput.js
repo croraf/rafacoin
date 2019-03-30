@@ -1,8 +1,5 @@
 import React from 'react';
 
-
-import { Grid, Row, Col } from 'react-flexbox-grid';
-
 import TextField from '@material-ui/core/TextField';
 
 class MyTextInput extends React.Component {
@@ -28,11 +25,12 @@ const mapDispatchToProps = () => ({});
 
 const mapStateToProps = (state, props) => {
 
-    const selectedAddressIndex = state.form.addressInfo.values && state.form.addressInfo.values.address;
+    /* const selectedAddressIndex = state.form.addressInfo.values && state.form.addressInfo.values.address;
 
     return {
       value: selectedAddressIndex !== undefined ? state.addressInfo[selectedAddressIndex].privateKey : '' 
-    }
+    }; */
+    return {value: 'abcd'};
 };
 
 const MyTextInputContainer = connect(

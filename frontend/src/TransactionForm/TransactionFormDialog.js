@@ -1,5 +1,7 @@
 import React from 'react';
-
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/styles';
 import Dialog, {
     DialogActions,
     DialogContent,
@@ -8,14 +10,8 @@ import Dialog, {
   } from '@material-ui/core/Dialog';
 
 import {TransactionForm} from './TranasactionForm';
-
-
-import Button from '@material-ui/core/Button';
-import { Grid, Row, Col } from 'react-flexbox-grid';
-
 import RemoteSubmitButton from './RemoteSubmitButton';
 
-import { withStyles } from '@material-ui/styles';
 
 const styles = {
     paper: {
@@ -39,7 +35,7 @@ class TransactionFormDialog extends React.Component {
     render () {
 
         return (
-            <Row style={{marginBottom: '10px'}}>
+            <Grid style={{marginBottom: '10px'}}>
 
                 <Dialog
                         open={this.state.open}
@@ -62,12 +58,12 @@ class TransactionFormDialog extends React.Component {
                         
                 </Dialog>
                 
-                <Col xs={3}>
+                <Grid xs={3}>
                     <Button variant='contained' style={{width: '100%'}} color='secondary' onClick={this.handleOpen}>
                         Make transaction
                     </Button>
-                </Col>
-            </Row>
+                </Grid>
+            </Grid>
         );
     }
     
