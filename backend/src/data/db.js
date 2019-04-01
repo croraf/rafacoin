@@ -3,7 +3,7 @@ const url = 'mongodb://localhost:27017';
 
 let db;
 
-const initializeMongoClient = async () => {
+const initializeMongoDbClient = async () => {
     const client = new MongoClient(url);
     await client.connect();
     console.log('Mongo client connected');
@@ -14,4 +14,4 @@ const getConnection = () => {
     return db;
 };
 
-module.exports = {initializeMongoClient, getConnection};
+module.exports = {initializeMongoDbClient, getConnection};

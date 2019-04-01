@@ -68,8 +68,7 @@ const startMining = async () => {
 
     log1('Creating separate mining process:', '');
     
-    const miningProcess = fork(process.env.NODE_ENV ? 'src/mining/miningSubprocess.js' : 'dist/mining/miningSubprocess.js');
-
+    const miningProcess = fork('src/mining/miningSubprocess.js');
 
     miningProcess.on('message', async (msg) => {
 

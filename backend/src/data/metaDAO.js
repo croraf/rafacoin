@@ -7,7 +7,7 @@ const getMetadata = async (/* hash */) => {
 
 const updateBlockchainMetadata = async (blockchainTipHash, blockchainHeight) => {
     
-    return await getConnection().collection('meta').update(
+    return await getConnection().collection('meta').updateOne(
         {type: 'blockchainMeta'},
         {
             type: 'blockchainMeta',
